@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@celadora/periodic-table':
+        specifier: ^0.1.32
+        version: 0.1.32
       '@emotion/react':
         specifier: ^11.13.0
         version: 11.13.0(@types/react@18.3.3)(react@18.3.1)
@@ -163,6 +166,9 @@ packages:
   '@babel/types@7.25.2':
     resolution: {integrity: sha512-YTnYtra7W9e6/oAZEHj0bJehPRUlLH9/fbpT5LfB0NhQXyALCRkRs3zH9v07IYhkgpqX6Z78FnuccZr/l4Fs4Q==}
     engines: {node: '>=6.9.0'}
+
+  '@celadora/periodic-table@0.1.32':
+    resolution: {integrity: sha512-TcmpVSlWfLIBWmyV8Em4Q4O+D6tXaJ9em5xEOYs19Pz8nJxlhZpvp5oknHP6MibEUCwpplX53N3F+sVo2de++g==}
 
   '@emotion/babel-plugin@11.12.0':
     resolution: {integrity: sha512-y2WQb+oP8Jqvvclh8Q55gLUyb7UFvgv7eJfsj7td5TToBrIUtPay2kMrZi4xjq9qw2vD0ZR5fSho0yqoFgX7Rw==}
@@ -1905,6 +1911,8 @@ snapshots:
       '@babel/helper-string-parser': 7.24.8
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
+
+  '@celadora/periodic-table@0.1.32': {}
 
   '@emotion/babel-plugin@11.12.0':
     dependencies:
