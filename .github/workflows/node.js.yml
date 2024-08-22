@@ -53,6 +53,7 @@ jobs:
   deploy:
     name: Deploy
     needs: build
+    needs: data
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
