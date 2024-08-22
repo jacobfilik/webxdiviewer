@@ -56,9 +56,12 @@ jobs:
       - name: Install dependencies
         run: |
           pip install xraylarch
+      - name: list
+        run: |
+          ls
       - name: Build db
         run: |
-          python build_database.py
+          python scripts/build_database.py
       - name: Uploading data
         uses: actions/upload-artifact@v2
         with:
