@@ -33,7 +33,7 @@ function StandardViewer() {
 
   function getData() {
     return (id: string) => {
-      axios.get("/xdidata/webxdiviewer/" + id).then((response) => {
+      axios.get("/webxdiviewer/xdidata/" + id).then((response) => {
 
         const xdi = XDIFile.parseFile(response.data)
         // const containsTrans = output != null && output.mutrans.length != 0;
