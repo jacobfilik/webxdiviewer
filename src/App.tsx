@@ -30,6 +30,8 @@
 
 
 import StandardViewerMui from "./StandardViewer.tsx";
+import WelcomePage from "./WelcomePage.tsx";
+import Header from "./Header.tsx";
 
 
 import { CssBaseline } from "@mui/material";
@@ -38,7 +40,9 @@ import { useMediaQuery } from "@mui/material";
 import { useState, useMemo } from "react";
 import { Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { MetadataContext, MetadataProvider } from "./MetadataContext.tsx";
+import { MetadataProvider } from "./MetadataContext.tsx";
+import { Routes, Route } from "react-router-dom";
+
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -68,8 +72,15 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Stack height="100vh" width="100vw" spacing={1}>
+                  <Header
+            colorMode={mode}
+            toggleColorMode={colorMode.toggleColorMode}
+          />
       <MetadataProvider>
-      <StandardViewerMui />
+                <Routes>
+              <Route path="/" element={<WelcomePage />} />
+              <Route path="/view" element={<StandardViewerMui />} />
+              </Routes>
       </MetadataProvider>
       </Stack>
     </ThemeProvider>

@@ -13,7 +13,7 @@ import XDIFile from "./xdifile.ts";
 import { MetadataContext } from "./MetadataContext.tsx";
 
 function StandardViewer() {
-  const [standards, setStandardsList] = useState<XASStandard[]>([]);
+  // const [standards, setStandardsList] = useState<XASStandard[]>([]);
 
   const [xasdata, setXASData] = useState<XASData | null>(null);
   const [showTrans, setShowTrans] = useState(false);
@@ -27,7 +27,7 @@ function StandardViewer() {
   const allElementSymbol = allStandards.map(s => s.element.symbol);
   const elementsSymbol = [...new Set(allElementSymbol)];
   const elements : Element[] = elementsSymbol.map((e) => ({symbol : e}));
-  const std = allStandards.slice(0,10)
+
 
   // const { elements } = useContext(MetadataContext);
 
@@ -62,10 +62,10 @@ function StandardViewer() {
     <Grid height="100%" container>
       <Grid item xs={5} padding={1}>
         <StandardsTable
-          standards={std}
+          standards={allStandards}
           elements={elements}
           updatePlot={onClick}
-          setStandards={setStandardsList}
+          // setStandards={setStandardsList}
         />
       </Grid>
       <Grid item height="100%" xs={7} padding={1}>

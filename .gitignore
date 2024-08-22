@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 
+public/webxdiviewer**
+
 .pnpm-store/**
 
 # Editor directories and files
