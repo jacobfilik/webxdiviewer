@@ -40,13 +40,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          sparse-checkout: |
+            data
           repository: jacobfilik/XASDataLibrary
-          path: my-tools
+          path: xdidata
       - name: Uploading data
         uses: actions/upload-artifact@v2
         with:
           name: data-files
-          path: ./data
+          path: ./xdidata/data
 
   deploy:
     name: Deploy
