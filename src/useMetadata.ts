@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const metadata_url = "/xdidata/db.json";
+const metadata_url = "/xdidata/webxdiviewer/db.json";
 
 import { XASStandard } from "./models";
 
