@@ -35,9 +35,24 @@ jobs:
           name: production-files
           path: ./dist
 
+  data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            data
+          repository: jacobfilik/XASDataLibrary
+          path: xdidata
+      - name: Uploading data
+        uses: actions/upload-artifact@v2
+        with:
+          name: data-files
+          path: ./xdidata/data
+
   deploy:
     name: Deploy
-    needs: build
+    needs: [build, data]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
@@ -47,7 +62,11 @@ jobs:
         with:
           name: production-files
           path: ./dist
-
+      - name: Downloading data
+        uses: actions/download-artifact@v2
+        with:
+          name: data-files
+          path: ./dist/xdidata
       - name: Deploying to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
