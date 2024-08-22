@@ -4,12 +4,13 @@ import XASChart from "./XASChart.tsx";
 import axios from "axios";
 import StandardsTable from "./StandardsTable.tsx";
 
-import { XASStandard, XASData } from "./models.ts";
+import { XASStandard, XASData, Element } from "./models.ts";
 // import { MetadataContext } from "../contexts/MetadataContext.tsx";
 
 import { Grid } from "@mui/material";
+import XDIFile from "./xdifile.ts";
 
-const data_url = "/api/data";
+import { MetadataContext } from "./MetadataContext.tsx";
 
 function StandardViewer() {
   const [standards, setStandardsList] = useState<XASStandard[]>([]);
@@ -20,22 +21,37 @@ function StandardViewer() {
   const [showRef, setShowRef] = useState(false);
   const [contains, setContains] = useState([false, false, false]);
 
-//   const { elements } = useContext(MetadataContext);
+
+  const  allStandards  = useContext(MetadataContext);
+
+  const allElementSymbol = allStandards.map(s => s.element.symbol);
+  const elementsSymbol = [...new Set(allElementSymbol)];
+  const elements : Element[] = elementsSymbol.map((e) => ({symbol : e}));
+  const std = allStandards.slice(0,10)
+
+  // const { elements } = useContext(MetadataContext);
 
   function getData() {
-    return (id: number) => {
-      axios.get(data_url + "/" + id).then((response) => {
-        const output: XASData = response.data as XASData;
-        const containsTrans = output != null && output.mutrans.length != 0;
-        const containsFluor = output != null && output.mufluor.length != 0;
-        const containsRef = output != null && output.murefer.length != 0;
+    return (id: string) => {
+      axios.get("/xdidata/" + id).then((response) => {
+
+        const xdi = XDIFile.parseFile(response.data)
+        // const containsTrans = output != null && output.mutrans.length != 0;
+        // const containsFluor = output != null && output.mufluor.length != 0;
+        // const containsRef = output != null && output.murefer.length != 0;
+
+        const containsTrans = true;
+        const containsFluor = false;
+        const containsRef = false;
 
         setShowTrans(containsTrans);
         setShowRef(containsRef);
         setShowFluor(containsFluor);
         setContains([containsTrans, containsFluor, containsRef]);
 
-        setXASData(output);
+        const xasdata : XASData = {energy : xdi.data["energy"], mutrans : xdi.data["mutrans"], mufluor : null, murefer: null}
+
+        setXASData(xasdata);
       });
     };
   }
@@ -46,8 +62,8 @@ function StandardViewer() {
     <Grid height="100%" container>
       <Grid item xs={5} padding={1}>
         <StandardsTable
-          standards={[]}
-          elements={[]}
+          standards={std}
+          elements={elements}
           updatePlot={onClick}
           setStandards={setStandardsList}
         />

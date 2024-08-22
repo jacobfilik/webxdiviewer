@@ -6,7 +6,7 @@ import { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 
-import { XASStandard, AdminXASStandard } from "../models";
+import { XASStandard} from "./models";
 
 
 const nResults = 7;
@@ -35,7 +35,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 function StandardMetadata(props: {
     key: number;
     xasstandard: XASStandard | null;
-    selected: AdminXASStandard | XASStandard | undefined;
+    selected: XASStandard | undefined;
     updatePlot: React.Dispatch<XASStandard>;
     selectedRow: number;
     setSelectedRow: React.Dispatch<React.SetStateAction<number>>;
@@ -61,10 +61,10 @@ function StandardMetadata(props: {
           {props.xasstandard?.edge.name ?? ""}
         </StyledTableCell>
         <StyledTableCell align="right">
-          {props.xasstandard?.sample_name ?? ""}
+          {props.xasstandard?.sample.name ?? ""}
         </StyledTableCell>
         <StyledTableCell align="right">
-          {props.xasstandard?.sample_prep ?? ""}
+          {props.xasstandard?.sample.prep ?? ""}
         </StyledTableCell>
         <StyledTableCell align="right">
           {props.xasstandard?.beamline.name ?? ""}
@@ -75,9 +75,9 @@ function StandardMetadata(props: {
 
 export default function StandardsTableView(props : {
     standards : XASStandard[];
-    updatePlot : (id: number) => void;
+    updatePlot : (id: string) => void;
     selectedStandard: XASStandard | undefined;
-    setSelectedStandard : (x: XASStandard | AdminXASStandard | undefined)  => void;
+    setSelectedStandard : (x: XASStandard | undefined)  => void;
     setCurrent: (cursor : string | null) => void;
     prevNext: string[] | null}) {
 
@@ -92,7 +92,7 @@ export default function StandardsTableView(props : {
       };
 
     const clickStandard = (standard: XASStandard) => {
-        props.updatePlot(standard.id);
+        props.updatePlot(standard.location);
        props.setSelectedStandard(standard);
       };
 

@@ -18,44 +18,44 @@ function StandardsTable(props: {
   standards: XASStandard[];
   elements: Element[];
   setStandards: (standards: XASStandard[]) => void;
-  updatePlot: (id: number) => void;
+  updatePlot: (id: string) => void;
 }): JSX.Element {
   const [selectedStandard, setSelectedStandard] = useState<XASStandard>();
-  const [selectedElement, setSelectedElement] = useState<number>(0);
+  const [selectedElement, setSelectedElement] = useState<string>("all");
   const [current, setCurrent] = useState<string | null>(null);
   const [prevNext, setPrevNext] = useState<string[] | null>(null);
 
-  const setStandards = props.setStandards;
-  const elements = props.elements;
-  useEffect(() => {
-    const get_req = (z: number, cursor: string | null) => {
-      let url = standards_url;
+  // const setStandards = props.setStandards;
+  // const elements = props.elements;
+  // useEffect(() => {
+  //   const get_req = (z: number, cursor: string | null) => {
+  //     let url = standards_url;
 
-      let symbol = null;
+  //     let symbol = null;
 
-      if (z > 0 && z <= elements.length) {
-        symbol = elements[z - 1].symbol;
-      }
+  //     if (z > 0 && z <= elements.length) {
+  //       symbol = elements[z - 1].symbol;
+  //     }
 
-      if (symbol != null) {
-        url =
-          standards_url + "?element=" + symbol + "&size=" + String(nResults);
-      } else {
-        url = url + "?size=" + String(nResults);
-      }
+  //     if (symbol != null) {
+  //       url =
+  //         standards_url + "?element=" + symbol + "&size=" + String(nResults);
+  //     } else {
+  //       url = url + "?size=" + String(nResults);
+  //     }
 
-      if (cursor) {
-        url = url + "&cursor=" + cursor;
-      }
+  //     if (cursor) {
+  //       url = url + "&cursor=" + cursor;
+  //     }
 
-      axios.get(url).then((response) => {
-        const output: XASStandard[] = response.data.items as XASStandard[];
-        setPrevNext([response.data.previous_page, response.data.next_page]);
-        setStandards(output);
-      });
-    };
-    get_req(selectedElement, current);
-  }, [selectedElement, current, setStandards, elements]);
+  //     axios.get(url).then((response) => {
+  //       const output: XASStandard[] = response.data.items as XASStandard[];
+  //       setPrevNext([response.data.previous_page, response.data.next_page]);
+  //       setStandards(output);
+  //     });
+  //   };
+  //   get_req(selectedElement, current);
+  // }, [selectedElement, current, setStandards, elements]);
 
   const stds: (XASStandard | null)[] = [null];
 
@@ -67,11 +67,11 @@ function StandardsTable(props: {
 
   return (
     <Stack spacing={2}>
-      <ElementSelector
+      {/* <ElementSelector
         elements={elements}
         selectedElement={selectedElement}
         setSelectedElement={setSelectedElement}
-      />
+      /> */}
       <StandardsTableView
         standards={props.standards}
         updatePlot={props.updatePlot}

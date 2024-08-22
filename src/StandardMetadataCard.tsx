@@ -1,4 +1,4 @@
-import { XASStandard } from "../models";
+import { XASStandard } from "./models";
 import {
   Card,
   CardContent,
@@ -6,8 +6,6 @@ import {
   CardActions,
   Link,
 } from "@mui/material";
-
-const data_url = "/api/data";
 
 function StandardMetadataCard(props: { standard: XASStandard }) {
   const standard = props.standard;
@@ -19,27 +17,22 @@ function StandardMetadataCard(props: { standard: XASStandard }) {
           XAS Standard
         </Typography>
         <Typography variant="h5" component="div">
-          {standard.sample_name}
+          {standard.sample.name}
         </Typography>
         <Typography variant="h6" component="div">
-          {standard.sample_comp}
+          {standard.sample.formula}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {standard.sample_prep}
+          {standard.sample.prep}
         </Typography>
         <Typography sx={{ mb: 1.5 }}>
-          Measured at {standard.facility} on beamline {standard.beamline.name}
+          Measured at {standard.facility?.name} on beamline {standard.beamline.name}
         </Typography>
-        <Typography sx={{ mb: 1.5 }}>{standard.collection_date}</Typography>
-        <Typography variant="body2">
-          {standard.citation}
-          <br />
-          {standard.doi}
-        </Typography>
+        <Typography sx={{ mb: 1.5 }}>{standard.start_time}</Typography>
       </CardContent>
       <CardActions>
         <Link
-          href={data_url + "/" + String(standard.id) + "?format=xdi"}
+          href={ "/xdidata/" + String(standard.location)}
           download={String(standard.id) + ".xdi"}
         >
           Download
