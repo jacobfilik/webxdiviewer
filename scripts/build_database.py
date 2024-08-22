@@ -2,9 +2,7 @@ from larch.io import xdi
 from pathlib import Path
 import json
 
-path = "../public/xdidata"
-
-p = path +"/As/as2o3_100K_scan1.xdi"
+path = "./xdidata/data"
 
 element = "element"
 symbol = "symbol"
@@ -68,5 +66,5 @@ for child in p.rglob("*.xdi"):
         m.append(md)
 
 
-with open("db.json", 'w') as fh:
+with open("./xdidata/data/db.json", 'w') as fh:
     fh.write(json.dumps(m))
