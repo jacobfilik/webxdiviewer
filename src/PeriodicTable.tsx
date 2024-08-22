@@ -63,11 +63,11 @@ function OuterNewElement({ backgroundColor, textColor }: OuterProps) {
 }
 
 function SimplePeriodicTable(props: {
-  onClickElement: React.Dispatch<number>;
+  onClickElement: React.Dispatch<string>;
   elementSize: number;
 }) {
   const handleClick: OnClick = (e, element) => {
-    props.onClickElement(Number(element.Number));
+    props.onClickElement(element.Symbol);
   };
 
   const theme = useTheme();

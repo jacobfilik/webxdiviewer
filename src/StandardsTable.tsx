@@ -10,70 +10,47 @@ import { Element } from "./models";
 import ElementSelector from "./ElementSelector";
 import StandardsTableView from "./StandardsTableView";
 
-const standards_url = "/api/standards";
-
 const nResults = 7;
 
 function StandardsTable(props: {
   standards: XASStandard[];
   elements: Element[];
-  setStandards: (standards: XASStandard[]) => void;
+  // setStandards: (standards: XASStandard[]) => void;
   updatePlot: (id: string) => void;
 }): JSX.Element {
   const [selectedStandard, setSelectedStandard] = useState<XASStandard>();
   const [selectedElement, setSelectedElement] = useState<string>("all");
-  const [current, setCurrent] = useState<string | null>(null);
+  const [current, setCurrent] = useState<number>(0);
   const [prevNext, setPrevNext] = useState<string[] | null>(null);
 
-  // const setStandards = props.setStandards;
-  // const elements = props.elements;
-  // useEffect(() => {
-  //   const get_req = (z: number, cursor: string | null) => {
-  //     let url = standards_url;
 
-  //     let symbol = null;
+  let stds: XASStandard[] = [];
 
-  //     if (z > 0 && z <= elements.length) {
-  //       symbol = elements[z - 1].symbol;
-  //     }
+  console.log(selectedElement)
 
-  //     if (symbol != null) {
-  //       url =
-  //         standards_url + "?element=" + symbol + "&size=" + String(nResults);
-  //     } else {
-  //       url = url + "?size=" + String(nResults);
-  //     }
-
-  //     if (cursor) {
-  //       url = url + "&cursor=" + cursor;
-  //     }
-
-  //     axios.get(url).then((response) => {
-  //       const output: XASStandard[] = response.data.items as XASStandard[];
-  //       setPrevNext([response.data.previous_page, response.data.next_page]);
-  //       setStandards(output);
-  //     });
-  //   };
-  //   get_req(selectedElement, current);
-  // }, [selectedElement, current, setStandards, elements]);
-
-  const stds: (XASStandard | null)[] = [null];
+  if (selectedElement != "all") {
+    stds = props.standards.filter((s) => (s.element.symbol == selectedElement))
+  }  else {
+    stds = props.standards
+  }
 
   if (stds.length < nResults) {
     while (stds.length < nResults) {
       stds.push(null);
     }
+  } else {
+    stds = stds.slice(current,current+7)
   }
 
   return (
     <Stack spacing={2}>
-      {/* <ElementSelector
-        elements={elements}
+      <ElementSelector
+        elements={props.elements}
         selectedElement={selectedElement}
         setSelectedElement={setSelectedElement}
-      /> */}
+      />
       <StandardsTableView
-        standards={props.standards}
+        standards={stds}
         updatePlot={props.updatePlot}
         selectedStandard={selectedStandard}
         setSelectedStandard={setSelectedStandard}

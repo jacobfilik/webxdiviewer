@@ -67,4 +67,4 @@ for child in p.rglob("*.xdi"):
 
 
 with open("./xdidata/data/db.json", 'w') as fh:
-    fh.write(json.dumps(m))
+    fh.write(json.dumps(m,separators=(',', ':')))

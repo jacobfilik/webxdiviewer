@@ -39,7 +39,7 @@ function ElementSelector(props: {
           label="Element"
           onChange={(e) => props.setSelectedElement(e.target.value)}
         >
-          <MenuItem value={0}>All Elements</MenuItem>
+          <MenuItem value={"all"}>All Elements</MenuItem>
           {elements.map((x, y) => (
             <MenuItem key={y} value={x.symbol}>
               {x.symbol}
@@ -67,10 +67,6 @@ function ElementSelector(props: {
       >
         <SimplePeriodicTable
           onClickElement={(el) => {
-            if (el >= elements.length) {
-              el = 0;
-            }
-
             props.setSelectedElement(el);
             setAnchorEl(null);
           }}
