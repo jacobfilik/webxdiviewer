@@ -32,7 +32,7 @@ function StandardMetadataCard(props: { standard: XASStandard }) {
       </CardContent>
       <CardActions>
         <Link
-          href={ "/xdidata/webxdiviewer/" + String(standard.location)}
+          href={ "/webxdiviewer/xdidata/" + String(standard.location)}
           download={String(standard.id) + ".xdi"}
         >
           Download
