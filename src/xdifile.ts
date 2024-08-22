@@ -1,5 +1,6 @@
 import { formToJSON } from "axios";
 
+
 class XDIMetaEntry {
     namespace: string;
     tag: string;
@@ -57,7 +58,8 @@ class XDIMetaEntry {
     date: string | null;
     columns: string[];
     comments: string | null;
-    data: [];
+    data: {}
+
   
     constructor(
       element: string | null,
@@ -161,8 +163,21 @@ class XDIMetaEntry {
             }
         }
       }
-      console.log(data)
-      return new XDIFile(element, edge, sample, beamline, date, columns, comment, data);
+
+      const datamap = {}
+
+      for (let k = 0; k < columns.length; k++) {
+        datamap[columns[k]] = data[k]
+      }
+
+      console.log("Hello")
+      
+      if (!("mutrans" in datamap) && ("itrans" in datamap) && ("i0" in datamap)) {
+        datamap["mutrans"] = datamap["i0"].map((x,i) => (Math.log2(x/datamap["itrans"][i])));
+      }
+
+
+      return new XDIFile(element, edge, sample, beamline, date, columns, comment, datamap);
     }
   
     static checkHeaderLine(line: string) {
