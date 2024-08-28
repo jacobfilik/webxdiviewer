@@ -1,5 +1,4 @@
 import SimplePeriodicTable from "./PeriodicTable";
-import { Element } from "./models";
 import { Popover } from "@mui/material";
 import { Stack, Button } from "@mui/material";
 import Select from "@mui/material/Select";
@@ -10,11 +9,11 @@ import { useState } from "react";
 import { FormControl, InputLabel } from "@mui/material";
 
 function ElementSelector(props: {
-  elements: Element[];
+  availableElements: Set<string>;
   selectedElement: string;
   setSelectedElement: React.Dispatch<string>;
 }) {
-  const elements = props.elements;
+  const elements = props.availableElements;
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -40,9 +39,9 @@ function ElementSelector(props: {
           onChange={(e) => props.setSelectedElement(e.target.value)}
         >
           <MenuItem value={"all"}>All Elements</MenuItem>
-          {elements.map((x, y) => (
-            <MenuItem key={y} value={x.symbol}>
-              {x.symbol}
+          {[...elements].map((x, y) => (
+            <MenuItem key={y} value={x}>
+              {x}
             </MenuItem>
           ))}
         </Select>
@@ -66,8 +65,11 @@ function ElementSelector(props: {
         }}
       >
         <SimplePeriodicTable
+          availableElements={props.availableElements}
           onClickElement={(el) => {
-            props.setSelectedElement(el);
+            if (props.availableElements.has(el)) {
+              props.setSelectedElement(el);
+            }
             setAnchorEl(null);
           }}
           elementSize={55}

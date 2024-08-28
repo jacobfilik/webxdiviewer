@@ -29,9 +29,9 @@
 
 
 
-import StandardViewerMui from "./StandardViewer.tsx";
-import WelcomePage from "./WelcomePage.tsx";
-import Header from "./Header.tsx";
+import ViewPage from "./components/ViewPage.tsx";
+import WelcomePage from "./components/WelcomePage.tsx";
+import Header from "./components/Header.tsx";
 
 
 import { CssBaseline } from "@mui/material";
@@ -40,7 +40,7 @@ import { useMediaQuery } from "@mui/material";
 import { useState, useMemo } from "react";
 import { Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { MetadataProvider } from "./MetadataContext.tsx";
+import { MetadataProvider } from "./contexts/MetadataContext.tsx";
 import { Routes, Route } from "react-router-dom";
 
 
@@ -79,7 +79,7 @@ function App() {
       <MetadataProvider>
                 <Routes>
               <Route path="/" element={<WelcomePage />} />
-              <Route path="/view" element={<StandardViewerMui />} />
+              <Route path="/view" element={<ViewPage />} />
               </Routes>
       </MetadataProvider>
       </Stack>

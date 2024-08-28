@@ -1,5 +1,3 @@
-import { formToJSON } from "axios";
-
 
 class XDIMetaEntry {
     namespace: string;
@@ -58,7 +56,7 @@ class XDIMetaEntry {
     date: string | null;
     columns: string[];
     comments: string | null;
-    data: {}
+    data: { [key: string]: number[] }
 
   
     constructor(
@@ -69,7 +67,7 @@ class XDIMetaEntry {
       date: string | null,
       columns: string[],
       comments: string,
-      data: []
+      data: { [key: string]: number[] }
     ) {
       this.element = element;
       this.edge = edge;
@@ -93,7 +91,7 @@ class XDIMetaEntry {
       let element = null;
       let edge = null;
       let date = null;
-      let data = [];
+      const data : number[][]= [];
   
       let inComment = false;
       let comment = "";
@@ -164,18 +162,23 @@ class XDIMetaEntry {
         }
       }
 
-      const datamap = {}
+      const datamap: { [key: string]: number[] } = {}
 
       for (let k = 0; k < columns.length; k++) {
         datamap[columns[k]] = data[k]
       }
-
-      console.log("Hello")
       
       if (!("mutrans" in datamap) && ("itrans" in datamap) && ("i0" in datamap)) {
         datamap["mutrans"] = datamap["i0"].map((x,i) => (Math.log2(x/datamap["itrans"][i])));
       }
 
+      if (!("murefer" in datamap) && ("irefer" in datamap) && ("i0" in datamap)) {
+        datamap["murefer"] = datamap["i0"].map((x,i) => (Math.log2(x/datamap["irefer"][i])));
+      }
+
+      if (!("mufluor" in datamap) && ("ifluor" in datamap) && ("i0" in datamap)) {
+        datamap["mufluor"] = datamap["i0"].map((x,i) => (datamap["ifluor"][i]/x));
+      }
 
       return new XDIFile(element, edge, sample, beamline, date, columns, comment, datamap);
     }
@@ -186,7 +189,33 @@ class XDIMetaEntry {
         throw new Error("XDI header not matched by: " + cleaned_line);
       }
     }
+
+    muTrans() {
+      if (XDIFile.MUSPEC[0] in this.data) {
+        return this.data[XDIFile.MUSPEC[0]]
+      }
+      return null;
+    }
+
+    muFluor() {
+      if (XDIFile.MUSPEC[1] in this.data) {
+        return this.data[XDIFile.MUSPEC[1]]
+      }
+      return null;
+    }
+
+    energy() {
+      return this.data[XDIFile.ENERGY]
+    }
   
+    muRefer() {
+      if (XDIFile.MUREFER in this.data) {
+        return this.data[XDIFile.MUREFER]
+      }
+      return null;
+    }
+
+
     checkValid() {
       if (!this.columns.includes(XDIFile.ENERGY)) {
         throw new Error("Required column energy is missing!");

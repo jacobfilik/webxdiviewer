@@ -1,4 +1,4 @@
-import { XASStandard } from "./models";
+import { XASStandard } from "../models";
 import {
   Card,
   CardContent,

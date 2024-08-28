@@ -9,9 +9,9 @@ export interface Element {
 
   export interface XASData {
     energy: Array<number>;
-    mutrans: Array<number>;
-    mufluor: Array<number>;
-    murefer: Array<number>;
+    mutrans: Array<number> | null;
+    mufluor: Array<number> | null;
+    murefer: Array<number> | null;
   }
   
   export interface Beamline {
