@@ -5,7 +5,7 @@ import XDIFile from "./xdifile";
 
 describe("Parse info from xdi file", () =>
   new Promise((done) => {
-    fs.readFile("test.xdi", "utf8", (err: any, data: string) => {
+    fs.readFile("test.xdi", "utf8", (err: NodeJS.ErrnoException | null, data: string) => {
       if (err) throw err;
       const xdi = XDIFile.parseFile(data);
 
@@ -30,6 +30,19 @@ describe("Parse info from xdi file", () =>
       it("Check columns valid", () => {
         expect(xdi.checkValid()).toBe(true);
       });
+
+      it("Check mu trans valid", () => {
+        expect(xdi.muTrans()).not.toEqual(null);
+      });
+
+      it("Check mu ref valid", () => {
+        expect(xdi.muRefer()).not.toEqual(null);
+      });
+
+      it("Check mu fluor null", () => {
+        expect(xdi.muFluor()).toEqual(null);
+      });
+
 
       done();
     });

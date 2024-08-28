@@ -11,8 +11,9 @@ import { Checkbox } from "@mui/material";
 
 import { NavLink } from "react-router-dom";
 
-import LightModeIcon from "./LightModeIcon";
-import DarkModeIcon from "./DarkModeIcon";
+// import LightModeIcon from "./LightModeIcon";
+import { MdLightMode, MdDarkMode } from "react-icons/md";
+// import DarkModeIcon from "./DarkModeIcon";
 
 // function NavListItem(props: { to: string; label: string }) {
 //   const to = props.to;
@@ -39,7 +40,6 @@ export default function Header(props: {
   colorMode: string;
   toggleColorMode: () => void;
 }) {
-
   const navitems = {
     Home: "/",
     View: "/view",
@@ -73,8 +73,8 @@ export default function Header(props: {
         </Stack>
         <Stack direction="row" alignItems={"center"}>
           <Checkbox
-            icon={<LightModeIcon />}
-            checkedIcon={<DarkModeIcon />}
+            icon={<MdLightMode />}
+            checkedIcon={<MdDarkMode />}
             checked={props.colorMode === "dark"}
             onChange={props.toggleColorMode}
           ></Checkbox>

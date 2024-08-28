@@ -10,7 +10,6 @@ function useMetadata(): XASStandard[] {
 
   useEffect(() => {
     axios.get(metadata_url).then((res) => {
-      console.log("SET")
       setAppMetdata(res.data);
     });
   }, []);

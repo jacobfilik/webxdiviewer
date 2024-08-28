@@ -12,11 +12,18 @@ type Props = {
 };
 
 type OuterProps = {
+  availableElements: Set<string>;
   backgroundColor: string;
   textColor: string;
+  disabledColor: string;
 };
 
-function OuterNewElement({ backgroundColor, textColor }: OuterProps) {
+function OuterNewElement({
+  availableElements,
+  backgroundColor,
+  textColor,
+  disabledColor,
+}: OuterProps) {
   return function NewElement({ atomicNumber }: Props) {
     const { onClick } = useContext(Context);
 
@@ -32,7 +39,9 @@ function OuterNewElement({ backgroundColor, textColor }: OuterProps) {
           onClick?.apply(null, [e, element]);
         }}
         style={{
-          backgroundColor: backgroundColor,
+          backgroundColor: availableElements.has(element.Symbol)
+            ? backgroundColor
+            : disabledColor,
           textAlign: "center",
           position: "relative",
           display: "flex",
@@ -47,7 +56,9 @@ function OuterNewElement({ backgroundColor, textColor }: OuterProps) {
         <div
           className="symbol"
           style={{
-            color: textColor,
+            color: availableElements.has(element.Symbol)
+              ? textColor
+              : backgroundColor,
             fontSize: "small",
             width: "100%",
             overflow: "hidden",
@@ -65,6 +76,7 @@ function OuterNewElement({ backgroundColor, textColor }: OuterProps) {
 function SimplePeriodicTable(props: {
   onClickElement: React.Dispatch<string>;
   elementSize: number;
+  availableElements: Set<string>;
 }) {
   const handleClick: OnClick = (e, element) => {
     props.onClickElement(element.Symbol);
@@ -75,12 +87,18 @@ function SimplePeriodicTable(props: {
   const bg = theme.palette.background.default;
   const fg = theme.palette.primary.main;
   const text = theme.palette.primary.contrastText;
+  const dis = theme.palette.primary.dark;
 
   return (
     <Box sx={{ bgcolor: bg }}>
       <PeriodicTable
         onClick={handleClick}
-        Element={OuterNewElement({ backgroundColor: fg, textColor: text })}
+        Element={OuterNewElement({
+          availableElements: props.availableElements,
+          backgroundColor: fg,
+          textColor: text,
+          disabledColor: dis,
+        })}
         squareSize={props.elementSize}
         margin={0}
       />
