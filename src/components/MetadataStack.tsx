@@ -1,18 +1,18 @@
 import { JSX, useState, useEffect } from "react";
-import { XASStandard } from "./models";
+import { XASStandard } from "../models";
 import StandardMetadataCard from "./StandardMetadataCard";
 import axios from "axios";
 
 import Stack from "@mui/material/Stack";
 
-import { Element } from "./models";
+import { Element } from "../models";
 
 import ElementSelector from "./ElementSelector";
 import StandardsTableView from "./StandardsTableView";
 
 const nResults = 7;
 
-function StandardsTable(props: {
+function MetadataStack(props: {
   standards: XASStandard[];
   elements: Element[];
   // setStandards: (standards: XASStandard[]) => void;
@@ -62,4 +62,4 @@ function StandardsTable(props: {
   );
 }
 
-export default StandardsTable;
+export default MetadataStack;

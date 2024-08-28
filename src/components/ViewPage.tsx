@@ -2,17 +2,17 @@ import { useState, useContext } from "react";
 
 import XASChart from "./XASChart.tsx";
 import axios from "axios";
-import StandardsTable from "./StandardsTable.tsx";
+import MetadataStack from "./MetadataStack.tsx";
 
-import { XASStandard, XASData, Element } from "./models.ts";
+import { XASData, Element } from "../models.ts";
 // import { MetadataContext } from "../contexts/MetadataContext.tsx";
 
 import { Grid } from "@mui/material";
-import XDIFile from "./xdifile.ts";
+import XDIFile from "../xdifile.ts";
 
-import { MetadataContext } from "./MetadataContext.tsx";
+import { MetadataContext } from "../contexts/MetadataContext.tsx";
 
-function StandardViewer() {
+function ViewPage() {
   // const [standards, setStandardsList] = useState<XASStandard[]>([]);
 
   const [xasdata, setXASData] = useState<XASData | null>(null);
@@ -61,7 +61,7 @@ function StandardViewer() {
   return (
     <Grid height="100%" container>
       <Grid item xs={5} padding={1}>
-        <StandardsTable
+        <MetadataStack
           standards={allStandards}
           elements={elements}
           updatePlot={onClick}
@@ -84,4 +84,4 @@ function StandardViewer() {
   );
 }
 
-export default StandardViewer;
+export default ViewPage;

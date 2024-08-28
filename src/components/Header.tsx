@@ -2,9 +2,6 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItem from "@mui/material/ListItem";
 import List from "@mui/material/List";

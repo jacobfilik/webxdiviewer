@@ -1,6 +1,6 @@
 import { createContext } from "react";
-import { XASStandard } from "./models";
-import useMetadata from "./useMetadata";
+import { XASStandard } from "../models";
+import useMetadata from "../hooks/useMetadata";
 
 const MetadataContext = createContext<XASStandard[]>([]);
 

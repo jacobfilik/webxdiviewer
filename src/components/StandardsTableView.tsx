@@ -6,7 +6,7 @@ import { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 
-import { XASStandard} from "./models";
+import { XASStandard} from "../models";
 
 
 const nResults = 7;
