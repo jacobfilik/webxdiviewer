@@ -6,8 +6,6 @@
 // import XDIFile from './xdifile'
 // import StandardViewer from './StandardViewer'
 
-
-
 // function App() {
 
 //   const get_data = () => {
@@ -16,7 +14,7 @@
 //       const file = response.data;
 //       const xdifile = XDIFile.parseFile(file);
 //       console.log(xdifile)
-    
+
 //     });
 //   }
 
@@ -27,12 +25,9 @@
 
 // export default App
 
-
-
 import ViewPage from "./components/ViewPage.tsx";
 import WelcomePage from "./components/WelcomePage.tsx";
 import Header from "./components/Header.tsx";
-
 
 import { CssBaseline } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
@@ -42,7 +37,6 @@ import { Stack } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { MetadataProvider } from "./contexts/MetadataContext.tsx";
 import { Routes, Route } from "react-router-dom";
-
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -72,16 +66,13 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Stack height="100vh" width="100vw" spacing={1}>
-                  <Header
-            colorMode={mode}
-            toggleColorMode={colorMode.toggleColorMode}
-          />
-      <MetadataProvider>
-                <Routes>
-              <Route path="/" element={<WelcomePage />} />
-              <Route path="/view" element={<ViewPage />} />
-              </Routes>
-      </MetadataProvider>
+        <Header colorMode={mode} toggleColorMode={colorMode.toggleColorMode} />
+        <MetadataProvider>
+          <Routes>
+            <Route path="/" element={<WelcomePage />} />
+            <Route path="/view" element={<ViewPage />} />
+          </Routes>
+        </MetadataProvider>
       </Stack>
     </ThemeProvider>
   );

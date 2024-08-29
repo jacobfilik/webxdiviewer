@@ -11,30 +11,7 @@ import { Checkbox } from "@mui/material";
 
 import { NavLink } from "react-router-dom";
 
-// import LightModeIcon from "./LightModeIcon";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
-// import DarkModeIcon from "./DarkModeIcon";
-
-// function NavListItem(props: { to: string; label: string }) {
-//   const to = props.to;
-//   const label = props.label;
-//   return (
-//     <ListItem key={label}>
-//       <ListItemButton
-//         component={NavLink}
-//         to={to}
-//         sx={{
-//           "&.active": {
-//             fontWeight: 800,
-//             color: (theme) => theme.palette.text.secondary,
-//           },
-//         }}
-//       >
-//         <ListItemText primary={label} />
-//       </ListItemButton>
-//     </ListItem>
-//   );
-// }
 
 export default function Header(props: {
   colorMode: string;

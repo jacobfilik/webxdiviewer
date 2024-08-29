@@ -26,13 +26,14 @@ function StandardMetadataCard(props: { standard: XASStandard }) {
           {standard.sample.prep}
         </Typography>
         <Typography sx={{ mb: 1.5 }}>
-          Measured at {standard.facility?.name} on beamline {standard.beamline.name}
+          Measured at {standard.facility?.name} on beamline{" "}
+          {standard.beamline.name}
         </Typography>
         <Typography sx={{ mb: 1.5 }}>{standard.start_time}</Typography>
       </CardContent>
       <CardActions>
         <Link
-          href={ "/webxdiviewer/xdidata/" + String(standard.location)}
+          href={"/webxdiviewer/xdidata/" + String(standard.location)}
           download={String(standard.id) + ".xdi"}
         >
           Download

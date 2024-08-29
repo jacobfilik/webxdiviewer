@@ -15,24 +15,34 @@ import "@h5web/lib/dist/styles.css";
 import Paper from "@mui/material/Paper";
 
 import { MdGridOn } from "react-icons/md";
-
-import { useTheme } from "@mui/material";
-import { useState } from "react";
+import { useTheme, Theme } from "@mui/material";
+import { useState, useEffect } from "react";
 
 import ndarray from "ndarray";
 import { Box } from "@mui/material";
 import { XASData } from "../models";
 
-function XASChart(props: {
-  xasdata: XASData | null;
+export interface XASChartState {
   showTrans: boolean;
   showFluor: boolean;
-  showRef: boolean;
-  setShowTrans: (show: boolean) => void;
-  setShowFluor: (show: boolean) => void;
-  setShowRef: (show: boolean) => void;
-  contains: boolean[];
-}) {
+  showRefer: boolean;
+}
+
+function XASChart(props: { xasData: XASData | null }) {
+  const [chartState, setChartState] = useState<XASChartState>({
+    showTrans: false,
+    showFluor: false,
+    showRefer: false,
+  });
+
+  useEffect(() => {
+    setChartState({
+      showTrans: props.xasData?.mutrans != null,
+      showFluor: props.xasData?.mufluor != null,
+      showRefer: props.xasData?.murefer != null,
+    });
+  }, [props.xasData]);
+
   const curveOptions: CurveType[] = Object.values(
     CurveType
   ) as Array<CurveType>;
@@ -42,6 +52,15 @@ function XASChart(props: {
 
   const theme = useTheme();
 
+  const { showTrans, showFluor, showRefer } = chartState;
+  const xasdata = props.xasData;
+
+  const contains = [
+    props.xasData?.mutrans != null,
+    props.xasData?.mufluor != null,
+    props.xasData?.murefer != null,
+  ];
+
   let xdata: ndarray.NdArray<number[]> = ndarray([0]);
   let ydata: ndarray.NdArray<number[]> = ndarray([0]);
 
@@ -49,23 +68,21 @@ function XASChart(props: {
 
   let ydataLabel = "";
 
-  const hideAll = !props.showTrans && !props.showFluor && !props.showRef;
+  const hideAll = !showTrans && !showFluor && !showRefer;
 
-  if (props.xasdata != null && !hideAll) {
-    xdata = ndarray(props.xasdata.energy, [props.xasdata.energy.length]);
+  if (xasdata != null && !hideAll) {
+    xdata = ndarray(xasdata.energy, [xasdata.energy.length]);
 
     let primaryFound = false;
 
-    if (props.showTrans && props.xasdata.mutrans) {
+    if (showTrans && xasdata.mutrans) {
       primaryFound = true;
-      ydata = ndarray(props.xasdata.mutrans, [props.xasdata.mutrans.length]);
+      ydata = ndarray(xasdata.mutrans, [xasdata.mutrans.length]);
       ydataLabel = "Transmission";
     }
 
-    if (props.showFluor && props.xasdata.mufluor) {
-      const fdata = ndarray(props.xasdata.mufluor, [
-        props.xasdata.mufluor.length,
-      ]);
+    if (showFluor && xasdata.mufluor) {
+      const fdata = ndarray(xasdata.mufluor, [xasdata.mufluor.length]);
       if (!primaryFound) {
         primaryFound = true;
         ydata = fdata;
@@ -75,10 +92,8 @@ function XASChart(props: {
       }
     }
 
-    if (props.showRef && props.xasdata.murefer) {
-      const rdata = ndarray(props.xasdata.murefer, [
-        props.xasdata.murefer.length,
-      ]);
+    if (showRefer && xasdata.murefer) {
+      const rdata = ndarray(xasdata.murefer, [xasdata.murefer.length]);
       if (!primaryFound) {
         primaryFound = true;
         ydata = rdata;
@@ -124,8 +139,8 @@ function XASChart(props: {
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: (theme) => theme.palette.background.default,
-        fontFamily: (theme) => theme.typography.fontFamily,
+        backgroundColor: (theme: Theme) => theme.palette.background.default,
+        fontFamily: (theme: Theme) => theme.typography.fontFamily,
       }}
     >
       <Box style={toolbarstyle}>
@@ -133,23 +148,27 @@ function XASChart(props: {
           <Separator />
           <ToggleBtn
             label="Transmission"
-            value={props.showTrans}
+            value={showTrans}
             onToggle={() => {
-              props.setShowTrans(!props.showTrans);
+              setChartState({ ...chartState, showTrans: !showTrans });
             }}
-            disabled={!props.contains[0]}
+            disabled={!contains[0]}
           />
           <ToggleBtn
             label="Fluorescence"
-            value={props.showFluor}
-            onToggle={() => props.setShowFluor(!props.showFluor)}
-            disabled={!props.contains[1]}
+            value={showFluor}
+            onToggle={() => {
+              setChartState({ ...chartState, showFluor: !showFluor });
+            }}
+            disabled={!contains[1]}
           />
           <ToggleBtn
             label="Reference"
-            value={props.showRef}
-            onToggle={() => props.setShowRef(!props.showRef)}
-            disabled={!props.contains[2]}
+            value={showRefer}
+            onToggle={() => {
+              setChartState({ ...chartState, showRefer: !showRefer });
+            }}
+            disabled={!contains[2]}
           />
           <Separator />
           <Selector<CurveType>
@@ -194,4 +213,4 @@ function XASChart(props: {
   );
 }
 
-export default XASChart;
+export { XASChart };
