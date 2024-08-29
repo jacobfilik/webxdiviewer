@@ -1,6 +1,6 @@
 import { JSX, useState } from "react";
 import { XASStandard } from "../models";
-import StandardMetadataCard from "./StandardMetadataCard";
+import MetadataTab from "./MetadataTab";
 
 import Stack from "@mui/material/Stack";
 
@@ -46,7 +46,7 @@ function MetadataStack(props: {
         offset={offset}
         setOffset={setOffset}
       />
-      {selectedStandard && <StandardMetadataCard standard={selectedStandard} />}
+      {selectedStandard && <MetadataTab standard={selectedStandard} />}
     </Stack>
   );
 }

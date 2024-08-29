@@ -1,19 +1,14 @@
 {
   "image": "node:18-bullseye-slim",
   "postCreateCommand": "yes | npm install -g pnpm",
-  "forwardPorts": [
-    5173
-  ],
+  "forwardPorts": [5173],
   "runArgs": [
     "--network=host",
     "--security-opt=label=type:container_runtime_t"
   ],
   "customizations": {
     "vscode": {
-      "extensions": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode"
-      ]
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
     }
   }
 }
