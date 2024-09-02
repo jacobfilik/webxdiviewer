@@ -21,6 +21,7 @@ import { useState, useEffect } from "react";
 import ndarray from "ndarray";
 import { Box } from "@mui/material";
 import { XASData } from "../models";
+import { norm } from "../utils";
 
 export interface XASChartState {
   showTrans: boolean;
@@ -77,12 +78,12 @@ function XASChart(props: { xasData: XASData | null }) {
 
     if (showTrans && xasdata.mutrans) {
       primaryFound = true;
-      ydata = ndarray(xasdata.mutrans, [xasdata.mutrans.length]);
+      ydata = norm(xasdata.energy, xasdata.mutrans);
       ydataLabel = "Transmission";
     }
 
     if (showFluor && xasdata.mufluor) {
-      const fdata = ndarray(xasdata.mufluor, [xasdata.mufluor.length]);
+      const fdata = norm(xasdata.energy, xasdata.mufluor);
       if (!primaryFound) {
         primaryFound = true;
         ydata = fdata;
@@ -93,7 +94,7 @@ function XASChart(props: { xasData: XASData | null }) {
     }
 
     if (showRefer && xasdata.murefer) {
-      const rdata = ndarray(xasdata.murefer, [xasdata.murefer.length]);
+      const rdata = norm(xasdata.energy, xasdata.murefer);
       if (!primaryFound) {
         primaryFound = true;
         ydata = rdata;
@@ -205,7 +206,7 @@ function XASChart(props: { xasData: XASData | null }) {
           domain={domain}
           showGrid={useGrid}
           curveType={curveOption}
-          scaleType={ScaleType.SymLog}
+          scaleType={ScaleType.Linear}
           auxiliaries={aux}
         />
       </Box>

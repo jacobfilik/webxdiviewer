@@ -17,6 +17,8 @@
     "@h5web/lib": "^12.0.1",
     "@mui/material": "^5.16.7",
     "axios": "^1.7.4",
+    "ml-regression-polynomial": "^3.0.1",
+    "ml-savitzky-golay-generalized": "^4.2.0",
     "ndarray": "^1.0.19",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
