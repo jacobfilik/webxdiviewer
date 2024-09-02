@@ -21,6 +21,7 @@ import { useState, useEffect } from "react";
 import ndarray from "ndarray";
 import { Box } from "@mui/material";
 import { XASData } from "../models";
+import { pre_edge } from "../utils";
 
 export interface XASChartState {
   showTrans: boolean;
@@ -48,6 +49,7 @@ function XASChart(props: { xasData: XASData | null }) {
   ) as Array<CurveType>;
 
   const [useGrid, setUseGrid] = useState(true);
+  const [useNorm, setUseNorm] = useState(true);
   const [curveOption, setCurveOption] = useState(curveOptions[0]);
 
   const theme = useTheme();
@@ -77,12 +79,18 @@ function XASChart(props: { xasData: XASData | null }) {
 
     if (showTrans && xasdata.mutrans) {
       primaryFound = true;
-      ydata = ndarray(xasdata.mutrans, [xasdata.mutrans.length]);
+
+      ydata = useNorm
+        ? pre_edge(xasdata.energy, xasdata.mutrans)
+        : ndarray(xasdata.mutrans, [xasdata.mutrans.length]);
+
       ydataLabel = "Transmission";
     }
 
     if (showFluor && xasdata.mufluor) {
-      const fdata = ndarray(xasdata.mufluor, [xasdata.mufluor.length]);
+      const fdata = useNorm
+        ? pre_edge(xasdata.energy, xasdata.mufluor)
+        : ndarray(xasdata.mufluor, [xasdata.mufluor.length]);
       if (!primaryFound) {
         primaryFound = true;
         ydata = fdata;
@@ -93,7 +101,9 @@ function XASChart(props: { xasData: XASData | null }) {
     }
 
     if (showRefer && xasdata.murefer) {
-      const rdata = ndarray(xasdata.murefer, [xasdata.murefer.length]);
+      const rdata = useNorm
+        ? pre_edge(xasdata.energy, xasdata.murefer)
+        : ndarray(xasdata.murefer, [xasdata.murefer.length]);
       if (!primaryFound) {
         primaryFound = true;
         ydata = rdata;
@@ -145,6 +155,13 @@ function XASChart(props: { xasData: XASData | null }) {
     >
       <Box style={toolbarstyle}>
         <Toolbar>
+          <ToggleBtn
+            label="Normalize"
+            value={useNorm}
+            onToggle={() => {
+              setUseNorm(!useNorm);
+            }}
+          />
           <Separator />
           <ToggleBtn
             label="Transmission"
@@ -205,7 +222,7 @@ function XASChart(props: { xasData: XASData | null }) {
           domain={domain}
           showGrid={useGrid}
           curveType={curveOption}
-          scaleType={ScaleType.SymLog}
+          scaleType={ScaleType.Linear}
           auxiliaries={aux}
         />
       </Box>

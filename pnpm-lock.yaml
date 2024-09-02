@@ -26,6 +26,12 @@ importers:
       axios:
         specifier: ^1.7.4
         version: 1.7.4
+      ml-regression-polynomial:
+        specifier: ^3.0.1
+        version: 3.0.1
+      ml-savitzky-golay-generalized:
+        specifier: ^4.2.0
+        version: 4.2.0
       ndarray:
         specifier: ^1.0.19
         version: 1.0.19
@@ -1002,6 +1008,9 @@ packages:
     resolution: {integrity: sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw==}
     engines: {node: '>= 16'}
 
+  cheminfo-types@1.8.0:
+    resolution: {integrity: sha512-OVzDu3sR6L5zYnD3YYQZe8Teaf1+Vooh8aJo5BMo3BfUQ8992Np6/x4q7Jr06M5XQwqq3oTGGd15kfHSlk8l5Q==}
+
   classnames@2.5.1:
     resolution: {integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==}
 
@@ -1356,6 +1365,9 @@ packages:
   iota-array@1.0.0:
     resolution: {integrity: sha512-pZ2xT+LOHckCatGQ3DcG/a+QuEqvoxqkiL7tvE8nn3uuu+f6i1TtpB5/FtWFbxUuVr5PZCx8KskuGatbJDXOWA==}
 
+  is-any-array@2.0.1:
+    resolution: {integrity: sha512-UtilS7hLRu++wb/WBAw9bNuP1Eg04Ivn1vERJck8zJthEvXCBEBpGR/33u/xLKWEQf95803oalHrVDptcAvFdQ==}
+
   is-arrayish@0.2.1:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
 
@@ -1491,6 +1503,27 @@ packages:
   minimatch@9.0.5:
     resolution: {integrity: sha512-G6T0ZX48xgozx7587koeX9Ys2NYy6Gmv//P89sEte9V9whIapMNF4idKxnW2QtCcLiTWlb/wfCabAtAFWhhBow==}
     engines: {node: '>=16 || 14 >=14.17'}
+
+  ml-array-max@1.2.4:
+    resolution: {integrity: sha512-BlEeg80jI0tW6WaPyGxf5Sa4sqvcyY6lbSn5Vcv44lp1I2GR6AWojfUvLnGTNsIXrZ8uqWmo8VcG1WpkI2ONMQ==}
+
+  ml-array-min@1.2.3:
+    resolution: {integrity: sha512-VcZ5f3VZ1iihtrGvgfh/q0XlMobG6GQ8FsNyQXD3T+IlstDv85g8kfV0xUG1QPRO/t21aukaJowDzMTc7j5V6Q==}
+
+  ml-array-rescale@1.3.7:
+    resolution: {integrity: sha512-48NGChTouvEo9KBctDfHC3udWnQKNKEWN0ziELvY3KG25GR5cA8K8wNVzracsqSW1QEkAXjTNx+ycgAv06/1mQ==}
+
+  ml-matrix@6.11.1:
+    resolution: {integrity: sha512-Fvp1xF1O07tt6Ux9NcnEQTei5UlqbRpvvaFZGs7l3Ij+nOaEDcmbSVtxwNa8V4IfdyFI1NLNUteroMJ1S6vcEg==}
+
+  ml-regression-base@4.0.0:
+    resolution: {integrity: sha512-V2VjB+K/BcgXaX450xvYw36TLOB+piD9G1pHU3VE+ggQUApsVGkYco6UMQykFOwBydHnDTbOiybH/lwrkqFT4g==}
+
+  ml-regression-polynomial@3.0.1:
+    resolution: {integrity: sha512-dNds0VK4nrMyZvwovy9bYo2WaHPstEztPly4EWB8mj+vPcNxyq4a2UiTueR1jwkgLo6/QWDzA+HBsHP7S/0z3A==}
+
+  ml-savitzky-golay-generalized@4.2.0:
+    resolution: {integrity: sha512-Pcn0URPuFbmxNC75SvukByL1Ct+DYQuyo8O5EfmUcHacx+zeODbIoPRgrWwEWZGvZAJ03aS9avTwV0VUNdtAZQ==}
 
   ms@2.1.2:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
@@ -2992,6 +3025,8 @@ snapshots:
 
   check-error@2.1.1: {}
 
+  cheminfo-types@1.8.0: {}
+
   classnames@2.5.1: {}
 
   clsx@2.1.1: {}
@@ -3357,6 +3392,8 @@ snapshots:
 
   iota-array@1.0.0: {}
 
+  is-any-array@2.0.1: {}
+
   is-arrayish@0.2.1: {}
 
   is-buffer@1.1.6: {}
@@ -3465,6 +3502,41 @@ snapshots:
   minimatch@9.0.5:
     dependencies:
       brace-expansion: 2.0.1
+
+  ml-array-max@1.2.4:
+    dependencies:
+      is-any-array: 2.0.1
+
+  ml-array-min@1.2.3:
+    dependencies:
+      is-any-array: 2.0.1
+
+  ml-array-rescale@1.3.7:
+    dependencies:
+      is-any-array: 2.0.1
+      ml-array-max: 1.2.4
+      ml-array-min: 1.2.3
+
+  ml-matrix@6.11.1:
+    dependencies:
+      is-any-array: 2.0.1
+      ml-array-rescale: 1.3.7
+
+  ml-regression-base@4.0.0:
+    dependencies:
+      cheminfo-types: 1.8.0
+      is-any-array: 2.0.1
+
+  ml-regression-polynomial@3.0.1:
+    dependencies:
+      cheminfo-types: 1.8.0
+      ml-matrix: 6.11.1
+      ml-regression-base: 4.0.0
+
+  ml-savitzky-golay-generalized@4.2.0:
+    dependencies:
+      cheminfo-types: 1.8.0
+      is-any-array: 2.0.1
 
   ms@2.1.2: {}
 
