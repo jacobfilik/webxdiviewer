@@ -22,7 +22,7 @@ export default function XASIcon() {
         inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
         sodipodi:docname="xas.svg"
       >
-        <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1">
+        <g>
           <ellipse
             id="path10"
             cx="63.999969"
