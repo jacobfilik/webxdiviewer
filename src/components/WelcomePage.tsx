@@ -4,18 +4,25 @@ import { Container, Typography, Box } from "@mui/material";
 function WelcomePage() {
   return (
     <Container maxWidth="md" sx={{ alignSelf: "center" }}>
-      <Typography variant="h5">
-        Welcome to the XAS Reference Data Viewer!
-      </Typography>
+      <Typography variant="h5">Welcome to the XAS Data Viewer!</Typography>
       <Box>
         <Typography paragraph={true}>
-          The XAS Standards Database is a collection of XAS data from careful
-          measurement "standard" materials - think pure chemicals purchased from
-          suppliers or well characterised mineral samples.
+          A prototype viewer for{" "}
+          <Link to={"https://docs.xrayabsorption.org/xaslib/xdi.html"}>
+            XDI files
+          </Link>{" "}
+          stored in a github repository. As part of the website build process,
+          the XDI files are pulled in and indexed, giving simple static website
+          to display open data. The website is currently pointing as a fork of
+          the data in the{" "}
+          <Link to={"https://github.com/XraySpectroscopy/XASDataLibrary"}>
+            XASDataLibrary
+          </Link>
+          .
         </Typography>
         <Typography paragraph={true}>
           The database is open to <Link to={"view"}> search and download </Link>
-          data from.
+          .
         </Typography>
       </Box>
     </Container>
