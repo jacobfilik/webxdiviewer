@@ -22,6 +22,7 @@ export default function Header(props: {
   const navitems = {
     Home: "/",
     Explore: "/view",
+    Viewer: "/xdiviewer",
     Terms: "/terms",
   };
 

@@ -50,7 +50,7 @@ export default function MetadataTab(props: { standard: XASStandard }) {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Standard" {...a11yProps(0)} />
+          <Tab label="Metadata" {...a11yProps(0)} />
           <Tab label="Raw File" {...a11yProps(1)} />
         </Tabs>
       </Box>

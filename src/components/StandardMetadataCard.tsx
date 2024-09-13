@@ -14,7 +14,7 @@ function StandardMetadataCard(props: { standard: XASStandard }) {
     <Card variant="outlined">
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          XAS Standard
+          XAS Metadata
         </Typography>
         <Typography variant="h5" component="div">
           {standard.sample.name}
