@@ -23,7 +23,6 @@ export default function Header(props: {
     Home: "/",
     Explore: "/view",
     Viewer: "/xdiviewer",
-    Terms: "/terms",
   };
 
   return (

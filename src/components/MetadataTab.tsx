@@ -23,7 +23,7 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: 1 }}>{children}</Box>}
     </div>
   );
 }
@@ -35,7 +35,10 @@ function a11yProps(index: number) {
   };
 }
 
-export default function MetadataTab(props: { standard: XASStandard }) {
+export default function MetadataTab(props: {
+  standard: XASStandard;
+  showDownload: boolean;
+}) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -55,7 +58,10 @@ export default function MetadataTab(props: { standard: XASStandard }) {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <StandardMetadataCard standard={props.standard} />
+        <StandardMetadataCard
+          standard={props.standard}
+          showDownload={props.showDownload}
+        />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <ReviewTextView />
