@@ -24,13 +24,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
       - name: Run build
         run: pnpm run build --base=/webxdiviewer/
       - name: Uploading production-ready build files
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: production-files
           path: ./dist
@@ -63,7 +63,7 @@ jobs:
         run: |
           python scripts/build_database.py
       - name: Uploading data
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: data-files
           path: ./xdidata/data
@@ -76,12 +76,12 @@ jobs:
 
     steps:
       - name: Downloading artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: production-files
           path: ./dist
       - name: Downloading data
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: data-files
           path: ./dist/xdidata

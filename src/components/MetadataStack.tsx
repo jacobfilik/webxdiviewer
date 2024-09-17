@@ -46,7 +46,9 @@ function MetadataStack(props: {
         offset={offset}
         setOffset={setOffset}
       />
-      {selectedStandard && <MetadataTab standard={selectedStandard} />}
+      {selectedStandard && (
+        <MetadataTab standard={selectedStandard} showDownload={true} />
+      )}
     </Stack>
   );
 }

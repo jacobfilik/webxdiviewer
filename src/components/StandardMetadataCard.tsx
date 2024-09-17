@@ -7,14 +7,17 @@ import {
   Link,
 } from "@mui/material";
 
-function StandardMetadataCard(props: { standard: XASStandard }) {
+function StandardMetadataCard(props: {
+  standard: XASStandard;
+  showDownload: boolean;
+}) {
   const standard = props.standard;
 
   return (
     <Card variant="outlined">
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          XAS Standard
+          XAS Metadata
         </Typography>
         <Typography variant="h5" component="div">
           {standard.sample.name}
@@ -31,14 +34,16 @@ function StandardMetadataCard(props: { standard: XASStandard }) {
         </Typography>
         <Typography sx={{ mb: 1.5 }}>{standard.start_time}</Typography>
       </CardContent>
-      <CardActions>
-        <Link
-          href={"/webxdiviewer/xdidata/" + String(standard.location)}
-          download={String(standard.id) + ".xdi"}
-        >
-          Download
-        </Link>
-      </CardActions>
+      {props.showDownload && (
+        <CardActions>
+          <Link
+            href={"/webxdiviewer/xdidata/" + String(standard.location)}
+            download={String(standard.id) + ".xdi"}
+          >
+            Download
+          </Link>
+        </CardActions>
+      )}
     </Card>
   );
 }

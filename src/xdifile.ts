@@ -1,3 +1,5 @@
+import { Sample } from "./models";
+
 class XDIMetaEntry {
   namespace: string;
   tag: string;
@@ -149,9 +151,10 @@ class XDIFile {
           }
         }
 
-        const sp = l.trim().split(/[ ,]+/);
+        const sp = l.trim().split(/\s{1,}/);
 
         if (sp.length != columns.length) {
+          console.log(sp);
           throw new Error("Wrong number of values in line " + l);
         }
         for (let j = 0; j < columns.length; j++) {
@@ -220,6 +223,19 @@ class XDIFile {
 
   energy() {
     return this.data[XDIFile.ENERGY];
+  }
+
+  build_sample(): Sample | null {
+    if (this.sample) {
+      return {
+        name: "name" in this.sample ? this.sample["name"] : "Unknown name",
+        prep: "prep" in this.sample ? this.sample["prep"] : "Unknown prep",
+        formula:
+          "formula" in this.sample ? this.sample["formula"] : "Unknown formula",
+      };
+    }
+
+    return null;
   }
 
   muRefer() {

@@ -132,6 +132,8 @@ function XASChart(props: { xasData: XASData | null }) {
     "--h5w-grid--color": theme.palette.text.secondary,
     "--h5w-axisLabels--color": theme.palette.text.primary,
     "--h5w-line--color": theme.palette.primary.dark,
+    "--h5w-tooltip--bgColor": theme.palette.action.hover,
+    "--h5w-tooltip--color": theme.palette.text.primary,
     "--h5w-line--colorAux": [
       theme.palette.success.light,
       theme.palette.secondary.dark,

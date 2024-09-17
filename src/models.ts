@@ -28,7 +28,7 @@ export interface Sample {
 }
 
 export interface XASStandard {
-  id: number;
+  id: string;
   element: Element;
   edge: Edge;
   sample: Sample;

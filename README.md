@@ -1,50 +1,15 @@
-# React + TypeScript + Vite
+# WebXDIViewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A prototype viewer for git repositories containing XAFS Data Interchange Format [XDI](https://docs.xrayabsorption.org/xaslib/xdi.html) files.
 
-Currently, two official plugins are available:
+The viewer is written in React/Typscript and it automatically deployed to Github pages using Github Actions. During the deployment process, XDI files are copied from a data repository, index, and added as static files to the viewer.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The code in this repo is deployed [here](http://jfilik.com/webxdiviewer/) using a fork of the XDI files frome the [XASDataLibrary].
 
-## Expanding the ESLint configuration
+## Deploying against a Different Data Repository
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Forking the repo and changing the repository and path in the "data" workflow should deploy the webpage against the specified repository.
 
-- Configure the top-level `parserOptions` property like this:
+## Local Deploy
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Manually building the project and then running the python script in the /scripts directory in a python environment with [Larch](https://xraypy.github.io/xraylarch/) installed should generate the XDI file index (a .json file). Copying the index with the XDI files to the dist folder should let the viewer be used locally (but I have not tested this...).
