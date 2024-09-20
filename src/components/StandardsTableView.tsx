@@ -26,6 +26,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
   },
 }));
 
@@ -62,16 +65,16 @@ function StandardMetadata(props: {
       selected={props.selectedRow === props.key}
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
     >
-      <StyledTableCell align="right">
+      <StyledTableCell align="left">
         {props.xasstandard?.element.symbol ?? "\xa0"}
       </StyledTableCell>
-      <StyledTableCell align="right">
+      <StyledTableCell align="center">
         {props.xasstandard?.edge.name ?? ""}
       </StyledTableCell>
-      <StyledTableCell align="right">
+      <StyledTableCell align="center">
         {props.xasstandard?.sample.name ?? ""}
       </StyledTableCell>
-      <StyledTableCell align="right">
+      <StyledTableCell align="center">
         {props.xasstandard?.sample.prep ?? ""}
       </StyledTableCell>
       <StyledTableCell align="right">
@@ -127,9 +130,9 @@ export default function StandardsTableView(props: {
           <TableHead>
             <TableRow>
               <TableCell>Element</TableCell>
-              <TableCell align="right">Edge</TableCell>
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Prep</TableCell>
+              <TableCell align="center">Edge</TableCell>
+              <TableCell align="center">Name</TableCell>
+              <TableCell align="center">Prep</TableCell>
               <TableCell align="right">Beamline</TableCell>
             </TableRow>
           </TableHead>

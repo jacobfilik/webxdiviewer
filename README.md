@@ -2,11 +2,11 @@
 
 A prototype viewer for git repositories containing XAFS Data Interchange Format [XDI](https://docs.xrayabsorption.org/xaslib/xdi.html) files.
 
-The viewer is written in React/Typscript and it automatically deployed to Github pages using Github Actions. During the deployment process, XDI files are copied from a data repository, index, and added as static files to the viewer.
+The viewer is written in React/Typscript and automatically deployed to Github pages using Github Actions. During the deployment process, XDI files are copied from a data repository, indexed, and added as static files to the viewer.
 
-The code in this repo is deployed [here](http://jfilik.com/webxdiviewer/) using a fork of the XDI files frome the [XASDataLibrary].
+The code in this repo is deployed [here](http://jfilik.com/webxdiviewer/) using a fork of the XDI files from the [XASDataLibrary](https://github.com/XraySpectroscopy/XASDataLibrary).
 
-## Deploying against a Different Data Repository
+## Deploying Against a Different Data Repository
 
 Forking the repo and changing the repository and path in the "data" workflow should deploy the webpage against the specified repository.
 

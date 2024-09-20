@@ -5,6 +5,8 @@ import Select from "@mui/material/Select";
 import { MenuItem } from "@mui/material";
 
 import { useState } from "react";
+import { useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material";
 
 import { FormControl, InputLabel } from "@mui/material";
 
@@ -15,6 +17,8 @@ function ElementSelector(props: {
 }) {
   const elements = props.availableElements;
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const theme = useTheme();
+  const isMatch = useMediaQuery(theme.breakpoints.down("lg"));
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -25,6 +29,8 @@ function ElementSelector(props: {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
+
+  const size = isMatch ? 30 : 55;
 
   return (
     <Stack direction="row" spacing={2}>
@@ -72,7 +78,7 @@ function ElementSelector(props: {
             }
             setAnchorEl(null);
           }}
-          elementSize={55}
+          elementSize={size}
         />
       </Popover>
     </Stack>

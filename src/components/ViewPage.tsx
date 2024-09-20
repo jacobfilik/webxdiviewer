@@ -29,10 +29,10 @@ function ViewPage() {
   return (
     <XDIFileProvider value={{ xdiFile: xdiFile, setXDIFile: setXDIFile }}>
       <Grid height="100%" container>
-        <Grid item xs={5} padding={1}>
+        <Grid item lg={5} md={12} padding={1}>
           <MetadataStack standards={allStandards} updatePlot={onClick} />
         </Grid>
-        <Grid item height="100%" xs={7} padding={1}>
+        <Grid item height="100%" lg={7} md={12} padding={1}>
           <XDIChart />
         </Grid>
       </Grid>
