@@ -3,8 +3,10 @@ import { Container, Typography, Box } from "@mui/material";
 
 function WelcomePage() {
   return (
-    <Container maxWidth="md" sx={{ alignSelf: "center" }}>
-      <Typography variant="h5">Welcome to the XAS Data Viewer!</Typography>
+    <Container maxWidth="md" sx={{ alignSelf: "center", p: "24px" }}>
+      <Typography variant="h4" padding="24px">
+        Welcome to the XAS Data Viewer!
+      </Typography>
       <Box>
         <Typography paragraph={true}>
           A prototype viewer for{" "}
