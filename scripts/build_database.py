@@ -2,7 +2,7 @@ from larch.io import xdi
 from pathlib import Path
 import json
 
-path = "./xdidata/data"
+path = "./xdidata/Data"
 
 element = "element"
 symbol = "symbol"
