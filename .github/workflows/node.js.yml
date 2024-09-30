@@ -46,8 +46,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           sparse-checkout: |
-            data
-          repository: jacobfilik/XASDataLibrary
+            Data
+          repository: jacobfilik/bmm-standards
           path: xdidata
       - name: Set up Python
         uses: actions/setup-python@v3
