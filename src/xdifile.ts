@@ -138,7 +138,15 @@ class XDIFile {
         ) {
           date = md.value;
         } else if (md.namespace === XDIFile.COLUMN) {
-          columns.push(md.value);
+          let v = md.value.toLowerCase();
+
+          if (v === "it") {
+            v = this.I + this.TRANS;
+          } else if (v === "ir") {
+            v = this.IREFER;
+          }
+
+          columns.push(v);
         }
       } else {
         if (l.trim().length == 0) {
@@ -154,7 +162,6 @@ class XDIFile {
         const sp = l.trim().split(/\s{1,}/);
 
         if (sp.length != columns.length) {
-          console.log(sp);
           throw new Error("Wrong number of values in line " + l);
         }
         for (let j = 0; j < columns.length; j++) {
