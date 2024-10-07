@@ -42,12 +42,14 @@ jobs:
   data:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout database build script
+        uses: actions/checkout@v4
         with:
           sparse-checkout: |
             scripts/build_database.py
           sparse-checkout-cone-mode: false
-      - uses: actions/checkout@v3
+      - name: Filtered checkout of data
+        uses: actions/checkout@v4
         with:
           filter: |
             ${{ env.DATA_PATH_IN_REPO }}/*
