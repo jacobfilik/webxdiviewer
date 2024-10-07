@@ -49,7 +49,7 @@ jobs:
           sparse-checkout-cone-mode: false
       - uses: actions/checkout@v3
         with:
-          sparse-checkout: |
+          filter: |
             ${{ env.DATA_PATH_IN_REPO }}/*
           repository: ${{ env.DATA_REPO }}
           path: xdidata
