@@ -1,0 +1,204 @@
+body {
+    margin: 40px;
+}
+
+.box {
+    background-color: #aad;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    font-size: 150%;
+    width: 210px;
+}
+
+.box:nth-child(even) {
+    background-color: #cac;
+    color: #000;
+}
+
+.wrapper {
+    width: 100%;
+    /* padding-left: 10%; */
+    /* display: grid; */
+    /* grid-gap: 10px; */
+    /* grid-template-columns: repeat(6, 250px); */
+}
+
+h1 {
+    font-size: 26px;
+    text-align: left;
+    margin-left: 0;
+    margin-top: 0;
+    padding-left: 0;
+    padding-bottom: .5rem;
+    border-bottom: 0.125rem solid rgba(0, 0, 0, 0.5);
+    text-align: left;
+}
+h2 {
+    font-size: 30px;
+    text-align: left;
+    margin-left: 8em;    
+}
+h2.first {
+    font-size: 30px;
+    text-align: left;
+    padding-left: 10%;
+}
+#floatright {
+    float: right;
+    margin-right: 20%;
+    font-size: 30px;
+}
+
+hr {
+    margin-left: 15em;
+}
+
+p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+/* table { */
+/*     width: 190px */
+/* } */
+
+.minor {
+    font-size: 13px;
+}
+.major {
+    font-size: 32px;
+    font-weight: bold;
+}
+.longmajor {
+    font-size: 24px;
+    font-weight: bold;
+}
+.verylongmajor {
+    font-size: 18px;
+    font-weight: bold;
+}
+.name {
+    font-size: 18px;
+}
+.loc {
+    font-size: 18px;
+    color: #777;
+}
+.znum {
+    color: #600;
+    font-size: 55px;
+    font-weight: bold;
+}
+.symbol {
+    font-size: 13px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: #600;
+}
+.topmatter {
+    width: 70%;
+    margin-left: 5%;
+}
+#divfix {
+    top: 0%;
+    left: 0;
+    position: fixed;
+    z-index: 3000;
+    width: 14em;
+    height: 100%
+    /* font-weight: bold; */
+    color: #000;
+    background-color: #eeeeee;
+    padding: 4px;
+    border-right: 0.125rem solid rgba(0, 0, 0, 0.5);
+    overflow-x: scroll;
+}
+.sidebarhr {
+    width: 80%;
+    text-align:left;
+    margin-left:0
+}
+
+#container{
+    width: 100%;
+    font-size: 26px;
+}
+#floated{
+    float: left;
+    width: 40%;
+}
+
+
+.instructions {
+    font-weight: bold;
+    color: #600;
+}
+.copyright {
+    z-index: 4000;
+    width: 82%;
+    font-weight: bold;
+    color: #000;
+    background-color: #eeeeee;
+    margin-left: 15em;
+    padding-top: 3px;
+}
+.ctop {
+    margin-top: 2em;
+    border-top: 2px solid black;
+}
+#outofrange {
+    color: #999;
+    text-decoration: line-through;
+    text-decoration-thickness: 1px;
+    text-decoration-style: wavy;
+    font-weight: bold;
+    font-style: italic;
+}
+#inrange {
+    color: #000;
+    font-weight: bold;
+}
+table {
+    border: 4px solid black;
+    border-spacing: 0px;
+    width: 80%;
+    margin-left: 15em;    
+}
+th {
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #669;
+    color: #eee;
+    text-align: left;
+}
+th, td {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    border-left: 0px;
+    border-right: 0px;
+    padding: 4px;
+    margin: 10%;
+}
+
+tr,present {
+    color: #000;
+    font-style: normal;
+}
+tr.missing {
+    color: #999;
+    font-style: italic;
+}
+.missing {
+    color: #994;
+    font-style: normal;
+}
+.cabinet {
+    color: #b66;
+    font-style: normal;
+}
+
+tr:nth-child(2n) {background: #ddd}
+tr:nth-child(2n-1) {background: rgba(160, 160, 255, 0.25)}
+tr:nth-child(4n-2) {background: #fff}
+tr:nth-child(4n-1) {background: rgba(210, 210, 255, 0.25)}

@@ -1,0 +1,523 @@
+body {
+	margin: 0;
+	min-height: 100vh;
+	background: #eeeeee;
+	/* background: linear-gradient(to bottom right, #ffffff, #aaaaaa); */
+	font-family: arial, sans-serif;
+}
+body * {
+	box-sizing: border-box;
+}
+/* h1 { */
+/* 	margin-top: 0; */
+/* 	padding-left: 0; */
+/* 	padding-bottom: .5rem; */
+/* 	border-bottom: 0.125rem solid rgba(0, 0, 0, 0.5); */
+/* 	text-align: left; */
+/* } */
+main {
+	/* background: linear-gradient(to bottom right, #fff, #f2f2f2); */
+	margin: 2rem auto;
+	width: 90%;
+	max-width: 100rem;
+	padding: 1rem;
+}
+main .ptable, main .color-table {
+    display: grid;
+    margin-left: 15em;
+    overflow-y: scroll;
+}
+main .ptable {
+	padding-left: 2rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	margin-bottom: 2rem;
+	grid-template-columns: repeat(18, 4.0rem);
+	grid-template-rows: 4.rem 4.5rem 4.5rem 4.5rem 4.5rem 4.5rem 4.5rem 2rem 4.5rem 4.5rem;
+}
+main .color-table {
+    grid-template-columns: repeat(6, 9rem);
+    grid-template-rows: 2rem;
+    margin-left: 25em;
+}
+.element {
+	position: relative;
+	background: rgba(0, 0, 0, 0);
+	padding: .25rem;
+	margin: 2px;
+	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0);
+	transition-property: box-shadow, transform;
+	transition-duration: .2s;
+	transition-timing-function: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+}
+.element .element-number {
+	font-style: italic;
+	font-size: .9rem;
+}
+.element .element-symbol {
+	margin: -.25rem 0 0;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+.element .element-name {
+	text-align: center;
+	font-size: .5rem;
+	margin-bottom: .25rem;
+	word-wrap: break-word;
+}
+.element .element-weight {
+	text-align: center;
+	color: rgba(0, 0, 0, 0.5);
+	font-size: .75rem;
+}
+.element:hover {
+	box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.5);
+	transform: scale(1.5);
+	z-index: 2;
+	cursor: pointer;
+}
+.element#key .element-number {
+	font-size: 1.8rem;
+}
+.element#key .element-symbol {
+	font-size: 2.5rem;
+}
+.element#key .element-name {
+	font-size: 1.2rem;
+}
+.element#key .element-weight {
+	font-size: 1.5rem;
+}
+.element.color-guide {
+	text-align: center;
+	cursor: default;
+	transform: scale(1.0);
+}
+.element.alkali {
+	background: #b2b3e4;
+}
+.element.alkaline {
+	background: #b2cfe4;
+}
+.element.transition {
+	background: #b6d1ba;
+}
+.element.basic {
+	background: #b2dbb9;
+}
+.element.semimetal {
+	background: #ebf2b2;
+}
+.element.nonmetal {
+	background: #e8d3b2;
+}
+.element.halogen {
+	background: #e4b2b2;
+}
+.element.noble {
+	background: #e8b5d2;
+}
+.element.lanthanide {
+	background: #d6b2df;
+}
+.element.actinide {
+	background: #c9b2d4;
+}
+.element.nostandards {
+	background: #d0cbc6;
+	cursor: default;
+}
+.element.nolink {
+	cursor: default;
+}
+#key {
+	grid-area: 1 / 7 / 3 / 10;
+}
+#h {
+	grid-area: 1 / 1 / 1 / 1;
+}
+#he {
+	grid-area: 1 / 18 / 1 / 18;
+}
+#li {
+	grid-area: 2 / 1 / 2 / 1;
+}
+#be {
+	grid-area: 2 / 2 / 2 / 2;
+}
+#b {
+	grid-area: 2 / 13 / 2 / 13;
+}
+#c {
+	grid-area: 2 / 14 / 2 / 14;
+}
+#n {
+	grid-area: 2 / 15 / 2 / 15;
+}
+#o {
+	grid-area: 2 / 16 / 2 / 16;
+}
+#f {
+	grid-area: 2 / 17 / 2 / 17;
+}
+#ne {
+	grid-area: 2 / 18 / 2 / 18;
+}
+#na {
+	grid-area: 3 / 1 / 3 / 1;
+}
+#mg {
+	grid-area: 3 / 2 / 3 / 2;
+}
+#al {
+	grid-area: 3 / 13 / 3 / 13;
+}
+#si {
+	grid-area: 3 / 14 / 3 / 14;
+}
+#p {
+	grid-area: 3 / 15 / 3 / 15;
+}
+#s {
+	grid-area: 3 / 16 / 3 / 16;
+}
+#cl {
+	grid-area: 3 / 17 / 3 / 17;
+}
+#ar {
+	grid-area: 3 / 18 / 3 / 18;
+}
+#k {
+	grid-area: 4 / 1 / 4 / 1;
+}
+#ca {
+	grid-area: 4 / 2 / 4 / 2;
+}
+#sc {
+	grid-area: 4 / 3 / 4 / 3;
+}
+#ti {
+	grid-area: 4 / 4 / 4 / 4;
+}
+#v {
+	grid-area: 4 / 5 / 4 / 5;
+}
+#cr {
+	grid-area: 4 / 6 / 4 / 6;
+}
+#mn {
+	grid-area: 4 / 7 / 4 / 7;
+}
+#fe {
+	grid-area: 4 / 8 / 4 / 8;
+}
+#co {
+	grid-area: 4 / 9 / 4 / 9;
+}
+#ni {
+	grid-area: 4 / 10 / 4 / 10;
+}
+#cu {
+	grid-area: 4 / 11 / 4 / 11;
+}
+#zn {
+	grid-area: 4 / 12 / 4 / 12;
+}
+#ga {
+	grid-area: 4 / 13 / 4 / 13;
+}
+#ge {
+	grid-area: 4 / 14 / 4 / 14;
+}
+#as {
+	grid-area: 4 / 15 / 4 / 15;
+}
+#se {
+	grid-area: 4 / 16 / 4 / 16;
+}
+#br {
+	grid-area: 4 / 17 / 4 / 17;
+}
+#kr {
+	grid-area: 4 / 18 / 4 / 18;
+}
+#rb {
+	grid-area: 5 / 1 / 5 / 1;
+}
+#sr {
+	grid-area: 5 / 2 / 5 / 2;
+}
+#y {
+	grid-area: 5 / 3 / 5 / 3;
+}
+#zr {
+	grid-area: 5 / 4 / 5 / 4;
+}
+#nb {
+	grid-area: 5 / 5 / 5 / 5;
+}
+#mo {
+	grid-area: 5 / 6 / 5 / 6;
+}
+#tc {
+	grid-area: 5 / 7 / 5 / 7;
+}
+#ru {
+	grid-area: 5 / 8 / 5 / 8;
+}
+#rh {
+	grid-area: 5 / 9 / 5 / 9;
+}
+#pd {
+	grid-area: 5 / 10 / 5 / 10;
+}
+#ag {
+	grid-area: 5 / 11 / 5 / 11;
+}
+#cd {
+	grid-area: 5 / 12 / 5 / 12;
+}
+#in {
+	grid-area: 5 / 13 / 5 / 13;
+}
+#sn {
+	grid-area: 5 / 14 / 5 / 14;
+}
+#sb {
+	grid-area: 5 / 15 / 5 / 15;
+}
+#te {
+	grid-area: 5 / 16 / 5 / 16;
+}
+#i {
+	grid-area: 5 / 17 / 5 / 17;
+}
+#xe {
+	grid-area: 5 / 18 / 5 / 18;
+}
+#cs {
+	grid-area: 6 / 1 / 6 / 1;
+}
+#ba {
+	grid-area: 6 / 2 / 6 / 2;
+}
+#hf {
+	grid-area: 6 / 4 / 6 / 4;
+}
+#ta {
+	grid-area: 6 / 5 / 6 / 5;
+}
+#w {
+	grid-area: 6 / 6 / 6 / 6;
+}
+#re {
+	grid-area: 6 / 7 / 6 / 7;
+}
+#os {
+	grid-area: 6 / 8 / 6 / 8;
+}
+#ir {
+	grid-area: 6 / 9 / 6 / 9;
+}
+#pt {
+	grid-area: 6 / 10 / 6 / 10;
+}
+#au {
+	grid-area: 6 / 11 / 6 / 11;
+}
+#hg {
+	grid-area: 6 / 12 / 6 / 12;
+}
+#tl {
+	grid-area: 6 / 13 / 6 / 13;
+}
+#pb {
+	grid-area: 6 / 14 / 6 / 14;
+}
+#bi {
+	grid-area: 6 / 15 / 6 / 15;
+}
+#po {
+	grid-area: 6 / 16 / 6 / 16;
+}
+#at {
+	grid-area: 6 / 17 / 6 / 17;
+}
+#rn {
+	grid-area: 6 / 18 / 6 / 18;
+}
+#fr {
+	grid-area: 7 / 1 / 7 / 1;
+}
+#ra {
+	grid-area: 7 / 2 / 7 / 2;
+}
+#rf {
+	grid-area: 7 / 4 / 7 / 4;
+}
+#db {
+	grid-area: 7 / 5 / 7 / 5;
+}
+#sg {
+	grid-area: 7 / 6 / 7 / 6;
+}
+#bh {
+	grid-area: 7 / 7 / 7 / 7;
+}
+#hs {
+	grid-area: 7 / 8 / 7 / 8;
+}
+#mt {
+	grid-area: 7 / 9 / 7 / 9;
+}
+#ds {
+	grid-area: 7 / 10 / 7 / 10;
+}
+#rg {
+	grid-area: 7 / 11 / 7 / 11;
+}
+#cn {
+	grid-area: 7 / 12 / 7 / 12;
+}
+#uut {
+	grid-area: 7 / 13 / 7 / 13;
+}
+#fl {
+	grid-area: 7 / 14 / 7 / 14;
+}
+#uup {
+	grid-area: 7 / 15 / 7 / 15;
+}
+#lv {
+	grid-area: 7 / 16 / 7 / 16;
+}
+#uus {
+	grid-area: 7 / 17 / 7 / 17;
+}
+#uuo {
+	grid-area: 7 / 18 / 7 / 18;
+}
+#la {
+	grid-area: 9 / 3 / 9 / 3;
+}
+#ce {
+	grid-area: 9 / 4 / 9 / 4;
+}
+#pr {
+	grid-area: 9 / 5 / 9 / 5;
+}
+#nd {
+	grid-area: 9 / 6 / 9 / 6;
+}
+#pm {
+	grid-area: 9 / 7 / 9 / 7;
+}
+#sm {
+	grid-area: 9 / 8 / 9 / 8;
+}
+#eu {
+	grid-area: 9 / 9 / 9 / 9;
+}
+#gd {
+	grid-area: 9 / 10 / 9 / 10;
+}
+#tb {
+	grid-area: 9 / 11 / 9 / 11;
+}
+#dy {
+	grid-area: 9 / 12 / 9 / 12;
+}
+#ho {
+	grid-area: 9 / 13 / 9 / 13;
+}
+#er {
+	grid-area: 9 / 14 / 9 / 14;
+}
+#tm {
+	grid-area: 9 / 15 / 9 / 15;
+}
+#yb {
+	grid-area: 9 / 16 / 9 / 16;
+}
+#lu {
+	grid-area: 9 / 17 / 9 / 17;
+}
+#ac {
+	grid-area: 10 / 3 / 10 / 3;
+}
+#th {
+	grid-area: 10 / 4 / 10 / 4;
+}
+#pa {
+	grid-area: 10 / 5 / 10 / 5;
+}
+#u {
+	grid-area: 10 / 6 / 10 / 6;
+}
+#np {
+	grid-area: 10 / 7 / 10 / 7;
+}
+#pu {
+	grid-area: 10 / 8 / 10 / 8;
+}
+#am {
+	grid-area: 10 / 9 / 10 / 9;
+}
+#cm {
+	grid-area: 10 / 10 / 10 / 10;
+}
+#bk {
+	grid-area: 10 / 11 / 10 / 11;
+}
+#cf {
+	grid-area: 10 / 12 / 10 / 12;
+}
+#es {
+	grid-area: 10 / 13 / 10 / 13;
+}
+#fm {
+	grid-area: 10 / 14 / 10 / 14;
+}
+#md {
+	grid-area: 10 / 15 / 10 / 15;
+}
+#no {
+	grid-area: 10 / 16 / 10 / 16;
+}
+#lr {
+	grid-area: 10 / 17 / 10 / 17;
+}
+#cg-alkali {
+	grid-area: 1 / 2 / 1 / 2;
+}
+#cg-alkaline {
+	grid-area: 1 / 3 / 1 / 3;
+}
+#cg-transition {
+	grid-area: 1 / 4 / 1 / 4;
+}
+#cg-basic {
+	grid-area: 1 / 5 / 1 / 5;
+}
+#cg-semimetal {
+	grid-area: 1 / 6 / 1 / 6;
+}
+#cg-nonmetal {
+	grid-area: 2 / 2 / 2 / 2;
+}
+#cg-halogen {
+	grid-area: 2 / 3 / 2 / 3;
+}
+#cg-noble {
+	grid-area: 2 / 4 / 2 / 4;
+}
+#cg-lanthanide {
+	grid-area: 2 / 5 / 2 / 5;
+}
+#cg-actinide {
+	grid-area: 2 / 6 / 2 / 6;
+}
+#cg-nostandards {
+	grid-area: 1 / 1 / 1 / 1;
+}
