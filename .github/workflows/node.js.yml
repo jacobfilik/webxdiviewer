@@ -50,8 +50,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           sparse-checkout: |
-            $DATA_PATH_IN_REPO/*
-          repository: $DATA_REPO
+            ${{ env.DATA_PATH_IN_REPO }}/*
+          repository: ${{ env.DATA_REPO }}
           path: xdidata
       - name: Set up Python
         uses: actions/setup-python@v3
