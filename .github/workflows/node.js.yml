@@ -4,8 +4,8 @@
 name: Node.js CI
 
 env:
-  DATA_REPO: jacobfilik/bmm-standards
-  DATA_PATH_IN_REPO: Data
+  DATA_REPO: jacobfilik/XASDataLibrary
+  DATA_PATH_IN_REPO: data
 
 on:
   push:
