@@ -42,17 +42,19 @@ jobs:
   data:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout database build script
+        uses: actions/checkout@v4
         with:
           sparse-checkout: |
             scripts/build_database.py
           sparse-checkout-cone-mode: false
-      - uses: actions/checkout@v3
+      - name: Filtered checkout of data
+        uses: actions/checkout@v4
         with:
-          filter: |
-            ${{ env.DATA_PATH_IN_REPO }}/*
+          sparse-checkout: |
+            ${{ env.DATA_PATH_IN_REPO }}
           repository: ${{ env.DATA_REPO }}
-          path: xdidata
+          path: tmp_xdidata
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
@@ -65,6 +67,8 @@ jobs:
           ls
       - name: Build db
         run: |
+          mkdir xdidata
+          mv tmp_xdidata/${{ env.DATA_PATH_IN_REPO }}/* xdidata/ 
           python scripts/build_database.py
       - name: Uploading data
         uses: actions/upload-artifact@v4
