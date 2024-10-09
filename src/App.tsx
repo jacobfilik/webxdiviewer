@@ -38,6 +38,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { MetadataProvider } from "./contexts/MetadataContext.tsx";
 import { Routes, Route } from "react-router-dom";
 import XDIPage from "./components/XDIPage.tsx";
+import PersistentView from "./components/PersistentView.tsx";
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -73,6 +74,7 @@ function App() {
             <Route path="/" element={<WelcomePage />} />
             <Route path="/view" element={<ViewPage />} />
             <Route path="/xdiviewer" element={<XDIPage />} />
+            <Route path="/xdi/:id/*" element={<PersistentView />} /> 
           </Routes>
         </MetadataProvider>
       </Stack>
