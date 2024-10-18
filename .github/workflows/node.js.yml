@@ -31,6 +31,8 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
+      - name: Set env
+        run: echo "{VITE_XDI_REPO_LOCATION}={$DATA_REPO}" >> $GITHUB_ENV
       - name: Run build
         run: pnpm run build --base=/webxdiviewer/
       - name: Uploading production-ready build files
