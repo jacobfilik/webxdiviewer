@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Container, Typography, Box } from "@mui/material";
 
-const env_repo_location = import.meta.env.VITE_SOME_KEY;
+const env_repo_location = import.meta.env.VITE_XDI_REPO_LOCATION;
 
 function WelcomePage() {
 
