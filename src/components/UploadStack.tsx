@@ -13,7 +13,11 @@ function UploadStack() {
     <Stack spacing={2}>
       <UploadXDI setXASMetadata={setXASMetadata} />
       {xasMetadata && (
-        <MetadataTab standard={xasMetadata} showDownload={false} />
+        <MetadataTab
+          standard={xasMetadata}
+          showDownload={false}
+          showCompare={false}
+        />
       )}
     </Stack>
   );

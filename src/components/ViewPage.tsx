@@ -12,13 +12,14 @@ import XDIChart from "./XDIChart.tsx";
 
 function ViewPage() {
   const [xdiFile, setXDIFile] = useState<XDIFile | null>(null);
+  const [comparisonFiles, setComparisonFiles] = useState<XDIFile[]>([]);
 
   const allStandards = useContext(MetadataContext);
 
   function getData() {
     return (id: string) => {
       axios.get("/webxdiviewer/xdidata/" + id).then((response) => {
-        const xdi = XDIFile.parseFile(response.data);
+        const xdi = XDIFile.parseFile(response.data, id);
         setXDIFile(xdi);
       });
     };
@@ -27,7 +28,14 @@ function ViewPage() {
   const onClick = getData();
 
   return (
-    <XDIFileProvider value={{ xdiFile: xdiFile, setXDIFile: setXDIFile }}>
+    <XDIFileProvider
+      value={{
+        xdiFile: xdiFile,
+        setXDIFile: setXDIFile,
+        comparisonFiles: comparisonFiles,
+        setComparisonFiles: setComparisonFiles,
+      }}
+    >
       <Grid height="100%" container>
         <Grid item lg={5} md={12} padding={1}>
           <MetadataStack standards={allStandards} updatePlot={onClick} />

@@ -1,27 +1,44 @@
 import {
-  LineVis,
+  DataCurve,
+  TooltipMesh,
   getDomain,
   Separator,
   Selector,
   Toolbar,
-  ScaleType,
   CurveType,
   ToggleBtn,
+  VisCanvas,
   getCombinedDomain,
+  DefaultInteractions,
+  Domain,
+  ResetZoomButton,
+  AxisConfig,
+  Overlay,
 } from "@h5web/lib";
 
 import "@h5web/lib/dist/styles.css";
+
+import { darken, lighten } from "@mui/material";
+
+import { ReactElement } from "react";
 
 import Paper from "@mui/material/Paper";
 
 import { MdGridOn } from "react-icons/md";
 import { useTheme, Theme } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
-import ndarray from "ndarray";
+import ndarray, { TypedArray } from "ndarray";
 import { Box } from "@mui/material";
 import { XASData } from "../models";
 import { pre_edge } from "../utils";
+
+interface DisplayData {
+  label: string;
+  x: TypedArray;
+  y: TypedArray;
+  color: string;
+}
 
 export interface XASChartState {
   showTrans: boolean;
@@ -29,7 +46,77 @@ export interface XASChartState {
   showRefer: boolean;
 }
 
-function XASChart(props: { xasData: XASData | null }) {
+function buildDisplayData(
+  xasData: XASData,
+  type: Pick<XASData, "mutrans" | "mufluor" | "murefer">,
+  normalize: boolean,
+  label: string,
+  color: string
+): DisplayData {
+  const ydata = xasData[type];
+  const xdata = xasData.energy;
+
+  const y = normalize ? pre_edge(xdata, ydata) : ndarray(ydata, [ydata.length]);
+
+  return { x: xdata, y: y, label: label + ":" + type, color: color };
+}
+
+function createDisplayData(
+  xasData: XASData | null,
+  showTrans: boolean,
+  showFluor: boolean,
+  showRefer: boolean,
+  normalize: boolean,
+  colors: string[]
+): DisplayData[] {
+  const hideAll = !showTrans && !showFluor && !showRefer;
+
+  const alldata: DisplayData[] = [];
+
+  if (hideAll || xasData == null) {
+    return alldata;
+  }
+
+  if (showRefer && xasData.murefer) {
+    alldata.push(
+      buildDisplayData(xasData, "murefer", normalize, xasData.id, colors[2])
+    );
+  }
+
+  if (showFluor && xasData.mufluor) {
+    alldata.push(
+      buildDisplayData(xasData, "mufluor", normalize, xasData.id, colors[1])
+    );
+  }
+
+  if (showTrans && xasData.mutrans) {
+    alldata.push(
+      buildDisplayData(xasData, "mutrans", normalize, xasData.id, colors[0])
+    );
+  }
+
+  return alldata;
+}
+
+function displayDataToDataCurve(
+  displayData: DisplayData,
+  curveType: CurveType
+): JSX.Element {
+  return (
+    <DataCurve
+      key={displayData.label}
+      abscissas={displayData.x}
+      ordinates={displayData.y.data}
+      curveType={curveType}
+      color={displayData.color}
+    />
+  );
+}
+
+function XASChart(props: {
+  xasData: XASData | null;
+  comparisonFiles: XASData[];
+}) {
   const [chartState, setChartState] = useState<XASChartState>({
     showTrans: false,
     showFluor: false,
@@ -55,7 +142,6 @@ function XASChart(props: { xasData: XASData | null }) {
   const theme = useTheme();
 
   const { showTrans, showFluor, showRefer } = chartState;
-  const xasdata = props.xasData;
 
   const contains = [
     props.xasData?.mutrans != null,
@@ -63,56 +149,65 @@ function XASChart(props: { xasData: XASData | null }) {
     props.xasData?.murefer != null,
   ];
 
-  let xdata: ndarray.NdArray<number[]> = ndarray([0]);
-  let ydata: ndarray.NdArray<number[]> = ndarray([0]);
+  const tooltipText = (x: number, y: number): ReactElement<string> => {
+    return (
+      <p>
+        {x.toPrecision(8)}, {y.toPrecision(8)}
+      </p>
+    );
+  };
 
-  const aux = [];
+  const dd = createDisplayData(
+    props.xasData,
+    showTrans,
+    showFluor,
+    showRefer,
+    useNorm,
+    [
+      darken(theme.palette.primary.dark, 0.3),
+      darken(theme.palette.success.light, 0.3),
+      darken(theme.palette.secondary.dark, 0.3),
+    ]
+  );
 
-  let ydataLabel = "";
+  const filteredComparison: XASData[] = props.comparisonFiles.filter(
+    (f) => f.id != props.xasData?.id
+  );
 
-  const hideAll = !showTrans && !showFluor && !showRefer;
+  const ddcompare: DisplayData[] = filteredComparison
+    .map((f, i) => {
+      return createDisplayData(f, showTrans, showFluor, showRefer, useNorm, [
+        lighten(theme.palette.primary.dark, i * 0.3),
+        lighten(theme.palette.success.light, i * 0.3),
+        lighten(theme.palette.secondary.dark, i * 0.3),
+      ]);
+    })
+    .flat();
 
-  if (xasdata != null && !hideAll) {
-    xdata = ndarray(xasdata.energy, [xasdata.energy.length]);
+  dd.push(...ddcompare);
 
-    let primaryFound = false;
+  const domain: Domain | undefined = getCombinedDomain(
+    dd.map((a) => getDomain(a.y))
+  );
+  const xdomain: Domain | undefined = getCombinedDomain(
+    dd.map((a) => getDomain(a.x))
+  );
 
-    if (showTrans && xasdata.mutrans) {
-      primaryFound = true;
+  const abscissaConfig: AxisConfig = {
+    visDomain: xdomain ?? [0, 1],
+    showGrid: true,
+    isIndexAxis: false,
+    label: "Energy (eV)",
+  };
 
-      ydata = useNorm
-        ? pre_edge(xasdata.energy, xasdata.mutrans)
-        : ndarray(xasdata.mutrans, [xasdata.mutrans.length]);
+  const ordinateConfig: AxisConfig = {
+    visDomain: domain ?? [0, 1],
+    showGrid: true,
+    isIndexAxis: false,
+    label: useNorm ? "mu(E) (norm)" : "mu(E)",
+  };
 
-      ydataLabel = "Transmission";
-    }
-
-    if (showFluor && xasdata.mufluor) {
-      const fdata = useNorm
-        ? pre_edge(xasdata.energy, xasdata.mufluor)
-        : ndarray(xasdata.mufluor, [xasdata.mufluor.length]);
-      if (!primaryFound) {
-        primaryFound = true;
-        ydata = fdata;
-        ydataLabel = "Fluorescence";
-      } else {
-        aux.push({ label: "Fluorescence", array: fdata });
-      }
-    }
-
-    if (showRefer && xasdata.murefer) {
-      const rdata = useNorm
-        ? pre_edge(xasdata.energy, xasdata.murefer)
-        : ndarray(xasdata.murefer, [xasdata.murefer.length]);
-      if (!primaryFound) {
-        primaryFound = true;
-        ydata = rdata;
-        ydataLabel = "Reference";
-      } else {
-        aux.push({ label: "Reference", array: rdata });
-      }
-    }
-  }
+  const legendColor = theme.palette.action.hover;
 
   const toolbarstyle = {
     "--h5w-toolbar--bgColor": theme.palette.action.hover,
@@ -139,10 +234,6 @@ function XASChart(props: { xasData: XASData | null }) {
       theme.palette.secondary.dark,
     ],
   } as React.CSSProperties;
-
-  const domain = getCombinedDomain(
-    [getDomain(ydata)].concat(aux.map((a) => getDomain(a.array)))
-  );
 
   return (
     <Paper
@@ -213,20 +304,37 @@ function XASChart(props: { xasData: XASData | null }) {
         </Toolbar>
       </Box>
       <Box style={plotstyle} flex={1} display="flex">
-        <LineVis
-          abscissaParams={{
-            value: xdata.data,
-            scaleType: ScaleType.Linear,
-            label: "Energy",
-          }}
-          dataArray={ydata}
-          ordinateLabel={ydataLabel}
-          domain={domain}
-          showGrid={useGrid}
-          curveType={curveOption}
-          scaleType={ScaleType.Linear}
-          auxiliaries={aux}
-        />
+        <VisCanvas
+          title={props.xasData?.id ?? " "}
+          abscissaConfig={abscissaConfig}
+          ordinateConfig={ordinateConfig}
+        >
+          {dd.map((d) => displayDataToDataCurve(d, curveOption))}
+          <TooltipMesh renderTooltip={tooltipText} />
+          <DefaultInteractions />
+          <ResetZoomButton />
+          <Overlay>
+            <div
+              style={{
+                color: theme.palette.text.primary,
+                position: "absolute",
+                maxWidth: "35%",
+                minWidth: "15em",
+                padding: "0 1rem",
+                bottom: "2.5rem",
+                right: "0px",
+                background: legendColor,
+              }}
+            >
+              {dd.reverse().map((d) => (
+                <div key={d.label}>
+                  <span style={{ color: d.color }}> &#9632;</span>
+                  <span>{"\xa0" + d.label}</span>
+                </div>
+              ))}
+            </div>
+          </Overlay>
+        </VisCanvas>
       </Box>
     </Paper>
   );

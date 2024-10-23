@@ -2,16 +2,23 @@ import { createContext } from "react";
 import XDIFile from "../xdifile";
 
 interface XDIState {
-    xdiFile : XDIFile | null,
-    setXDIFile: (xdiFile: XDIFile) => void
+  xdiFile: XDIFile | null;
+  setXDIFile: (xdiFile: XDIFile) => void;
+  comparisonFiles: XDIFile[];
+  setComparisonFiles: (xdiFiles: XDIFile[]) => void;
 }
 
 const XDIFileContext = createContext<XDIState>({
-    xdiFile: null,
-    setXDIFile: () => {}
-})
+  xdiFile: null,
+  setXDIFile: () => {},
+  comparisonFiles: [],
+  setComparisonFiles: () => {},
+});
 
-function XDIFileProvider(props: { children: React.ReactNode, value: XDIState }) {
+function XDIFileProvider(props: {
+  children: React.ReactNode;
+  value: XDIState;
+}) {
   const { children } = props;
 
   return (

@@ -7,6 +7,7 @@ export interface Edge {
 }
 
 export interface XASData {
+  id: string;
   energy: Array<number>;
   mutrans: Array<number> | null;
   mufluor: Array<number> | null;

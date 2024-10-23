@@ -8,8 +8,16 @@ import UploadStack from "./UploadStack";
 
 function XDIPage() {
   const [xdiFile, setXDIFile] = useState<XDIFile | null>(null);
+
   return (
-    <XDIFileProvider value={{ xdiFile: xdiFile, setXDIFile: setXDIFile }}>
+    <XDIFileProvider
+      value={{
+        xdiFile: xdiFile,
+        setXDIFile: setXDIFile,
+        comparisonFiles: [],
+        setComparisonFiles: () => {},
+      }}
+    >
       <Grid height="100%" container>
         <Grid item lg={5} md={12} padding={1}>
           <UploadStack />

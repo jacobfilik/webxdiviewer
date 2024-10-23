@@ -4,10 +4,8 @@ import { Container, Typography, Box } from "@mui/material";
 const env_repo_location = import.meta.env.VITE_XDI_REPO_LOCATION;
 
 function WelcomePage() {
+  const repo_location = env_repo_location ?? "examplerepo/xdifiles";
 
-  const repo_location = env_repo_location ?? "examplerepo/xdifiles" 
-
-  console.log(repo_location)
   return (
     <Container maxWidth="md" sx={{ alignSelf: "center", p: "24px" }}>
       <Typography variant="h4" padding="24px">
