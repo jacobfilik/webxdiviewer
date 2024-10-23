@@ -7,6 +7,7 @@ function XDIChart() {
   const xdiFileState = useContext(XDIFileContext);
 
   let xasdata: XASData | null = null;
+  let comparisonFiles: XASData[] = [];
 
   if (xdiFileState.xdiFile != null) {
     const xdi = xdiFileState.xdiFile;
@@ -23,9 +24,21 @@ function XDIChart() {
       mufluor: mufluor,
       murefer: murefer,
     };
+
+    comparisonFiles = xdiFileState.comparisonFiles.map((f) => {
+      return {
+        id: f.id,
+        energy: f.energy(),
+        mutrans: f.muTrans(),
+        mufluor: f.muFluor(),
+        murefer: f.muRefer(),
+      };
+    });
   }
 
-  return <XASChart xasData={xasdata}></XASChart>;
+  return (
+    <XASChart xasData={xasdata} comparisonFiles={comparisonFiles}></XASChart>
+  );
 }
 
 export default XDIChart;

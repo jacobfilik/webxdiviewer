@@ -5,6 +5,7 @@ import ReviewTextView from "./XDITextView";
 
 import { useState } from "react";
 import { XASStandard } from "../models";
+import CompareList from "./CompareList";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -38,6 +39,7 @@ function a11yProps(index: number) {
 export default function MetadataTab(props: {
   standard: XASStandard;
   showDownload: boolean;
+  showCompare: boolean;
 }) {
   const [value, setValue] = useState(0);
 
@@ -55,6 +57,7 @@ export default function MetadataTab(props: {
         >
           <Tab label="Metadata" {...a11yProps(0)} />
           <Tab label="Raw File" {...a11yProps(1)} />
+          {props.showCompare && <Tab label="Comparison" {...a11yProps(2)} />}
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -66,6 +69,11 @@ export default function MetadataTab(props: {
       <CustomTabPanel value={value} index={1}>
         <ReviewTextView />
       </CustomTabPanel>
+      {props.showCompare && (
+        <CustomTabPanel value={value} index={2}>
+          <CompareList />
+        </CustomTabPanel>
+      )}
     </Box>
   );
 }

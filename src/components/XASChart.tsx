@@ -18,6 +18,8 @@ import {
 
 import "@h5web/lib/dist/styles.css";
 
+import { darken, lighten } from "@mui/material";
+
 import { ReactElement } from "react";
 
 import Paper from "@mui/material/Paper";
@@ -53,7 +55,6 @@ function buildDisplayData(
 ): DisplayData {
   const ydata = xasData[type];
   const xdata = xasData.energy;
-  console.log(label + " " + type);
 
   const y = normalize ? pre_edge(xdata, ydata) : ndarray(ydata, [ydata.length]);
 
@@ -112,7 +113,10 @@ function displayDataToDataCurve(
   );
 }
 
-function XASChart(props: { xasData: XASData | null }) {
+function XASChart(props: {
+  xasData: XASData | null;
+  comparisonFiles: XASData[];
+}) {
   const [chartState, setChartState] = useState<XASChartState>({
     showTrans: false,
     showFluor: false,
@@ -120,7 +124,6 @@ function XASChart(props: { xasData: XASData | null }) {
   });
 
   useEffect(() => {
-    console.log("USE EFFECT");
     setChartState({
       showTrans: props.xasData?.mutrans != null,
       showFluor: props.xasData?.mufluor != null,
@@ -161,11 +164,27 @@ function XASChart(props: { xasData: XASData | null }) {
     showRefer,
     useNorm,
     [
-      theme.palette.primary.dark,
-      theme.palette.success.light,
-      theme.palette.secondary.dark,
+      darken(theme.palette.primary.dark, 0.3),
+      darken(theme.palette.success.light, 0.3),
+      darken(theme.palette.secondary.dark, 0.3),
     ]
   );
+
+  const filteredComparison: XASData[] = props.comparisonFiles.filter(
+    (f) => f.id != props.xasData?.id
+  );
+
+  const ddcompare: DisplayData[] = filteredComparison
+    .map((f, i) => {
+      return createDisplayData(f, showTrans, showFluor, showRefer, useNorm, [
+        lighten(theme.palette.primary.dark, i * 0.3),
+        lighten(theme.palette.success.light, i * 0.3),
+        lighten(theme.palette.secondary.dark, i * 0.3),
+      ]);
+    })
+    .flat();
+
+  dd.push(...ddcompare);
 
   const domain: Domain | undefined = getCombinedDomain(
     dd.map((a) => getDomain(a.y))
@@ -215,8 +234,6 @@ function XASChart(props: { xasData: XASData | null }) {
       theme.palette.secondary.dark,
     ],
   } as React.CSSProperties;
-
-  console.log("RENDER " + (props.xasData?.id ?? "Nothing") + " " + contains);
 
   return (
     <Paper

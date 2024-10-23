@@ -21,9 +21,6 @@ function PersistentView() {
   const [xdiFile, setXDIFile] = useState<XDIFile | null>(null);
   const allStandards = useContext(MetadataContext);
 
-  console.log(id);
-  console.log(allStandards[1]);
-
   const standard = allStandards.find((f) => f.location === id);
 
   useEffect(() => {
@@ -42,11 +39,22 @@ function PersistentView() {
   // const onClick = getData();
 
   return (
-    <XDIFileProvider value={{ xdiFile: xdiFile, setXDIFile: setXDIFile }}>
+    <XDIFileProvider
+      value={{
+        xdiFile: xdiFile,
+        setXDIFile: setXDIFile,
+        comparisonFiles: [],
+        setComparisonFiles: () => {},
+      }}
+    >
       <Grid height="100%" container>
         <Grid item lg={5} md={12} padding={1}>
           {standard ? (
-            <MetadataTab standard={standard} showDownload={true} />
+            <MetadataTab
+              standard={standard}
+              showDownload={true}
+              showCompare={false}
+            />
           ) : (
             <Typography> Could not find {id} </Typography>
           )}
