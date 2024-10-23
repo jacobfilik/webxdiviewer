@@ -124,6 +124,7 @@ function XASChart(props: {
   });
 
   useEffect(() => {
+    console.log("USE EFFECT");
     setChartState({
       showTrans: props.xasData?.mutrans != null,
       showFluor: props.xasData?.mufluor != null,
