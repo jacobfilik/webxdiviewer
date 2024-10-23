@@ -17,6 +17,7 @@ function XDIChart() {
     const murefer = xdi.muRefer();
 
     xasdata = {
+      id: xdi.id,
       energy: energy,
       mutrans: mutrans,
       mufluor: mufluor,

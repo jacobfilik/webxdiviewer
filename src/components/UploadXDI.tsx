@@ -18,7 +18,7 @@ function UploadXDI(props: { setXASMetadata: (standard: XASStandard) => void }) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     axios.get(xdiURL).then((response) => {
-      const xdi = XDIFile.parseFile(response.data);
+      const xdi = XDIFile.parseFile(response.data, xdiURL);
       xdiContext.setXDIFile(xdi);
 
       const standard: XASStandard = {
@@ -43,7 +43,7 @@ function UploadXDI(props: { setXASMetadata: (standard: XASStandard) => void }) {
         if (e.target != null && typeof e.target.result === "string") {
           let xdi: XDIFile;
           try {
-            xdi = XDIFile.parseFile(e.target.result);
+            xdi = XDIFile.parseFile(e.target.result, "localfile");
             xdiContext.setXDIFile(xdi);
 
             const standard: XASStandard = {

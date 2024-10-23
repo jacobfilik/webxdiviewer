@@ -59,6 +59,7 @@ class XDIFile {
   comments: string | null;
   data: { [key: string]: number[] };
   raw: string;
+  id: string;
 
   constructor(
     element: string | null,
@@ -69,7 +70,8 @@ class XDIFile {
     columns: string[],
     comments: string,
     data: { [key: string]: number[] },
-    raw: string
+    raw: string,
+    id: string
   ) {
     this.element = element;
     this.edge = edge;
@@ -80,11 +82,12 @@ class XDIFile {
     this.comments = comments;
     this.data = data;
     this.raw = raw;
+    this.id = id;
   }
 
   //   Facility, Beamline, Mono, Detector, Sample, Scan, Element, Column
 
-  static parseFile(xditext: string) {
+  static parseFile(xditext: string, id: string) {
     const lines = xditext.split("\n");
 
     const sample: { [key: string]: string } = {};
@@ -203,7 +206,8 @@ class XDIFile {
       columns,
       comment,
       datamap,
-      xditext
+      xditext,
+      id
     );
   }
 

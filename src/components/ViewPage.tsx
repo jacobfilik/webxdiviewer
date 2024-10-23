@@ -18,7 +18,7 @@ function ViewPage() {
   function getData() {
     return (id: string) => {
       axios.get("/webxdiviewer/xdidata/" + id).then((response) => {
-        const xdi = XDIFile.parseFile(response.data);
+        const xdi = XDIFile.parseFile(response.data, id);
         setXDIFile(xdi);
       });
     };
