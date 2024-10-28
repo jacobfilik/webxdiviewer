@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { XASStandard } from "../models";
 import {
   Card,
@@ -44,7 +45,8 @@ function StandardMetadataCard(props: {
             >
               Download XDI
             </Link>
-            <Link href={"/#/xdi/" + String(standard.location)}>
+
+            <Link component={NavLink} to={"/xdi/" + String(standard.location)}>
               Persistent Link
             </Link>
           </Stack>
