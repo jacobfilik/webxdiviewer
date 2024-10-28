@@ -7,7 +7,6 @@ import {
   CardActions,
   Link,
   Stack,
-  Button,
 } from "@mui/material";
 
 function StandardMetadataCard(props: {
